@@ -5,6 +5,7 @@ import './App.css'
 import HomePage from './pages/HomePage'
 import ModernCarousel from './pages/ModernCarousel'
 import Navbar from './pages/UpperNavbar';
+import Registeration from './pages/Registeration';
 
 function App() {
   return (
@@ -13,6 +14,7 @@ function App() {
         <Route path="/" element={<HomePage />} />
         <Route path="/moderncarousel" element={<ModernCarousel />} />
         <Route path="/nav" element={<Navbar />} />
+        <Route path="/registeration" element={<Registeration />} />
 
       </Routes>
     </Router>

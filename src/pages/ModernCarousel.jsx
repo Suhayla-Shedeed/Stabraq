@@ -6,8 +6,8 @@ const ModernCarousel = () => {
     return (
         <Carousel>
             {/* Slide 1 */}
-            <Carousel.Item>
-                <div style={{ alignItems: 'center', justifyContent: 'center', height: '720px', backgroundColor: '#f8f8f8' }}>
+            <Carousel.Item >
+                <div style={{ alignItems: 'center', justifyContent: 'center', height: '656px', backgroundColor: '#f8f8f8' }}>
                     <img
                         src="src/images/1.png"
                         alt="Slide 1"
@@ -18,7 +18,7 @@ const ModernCarousel = () => {
 
             {/* Slide 2 */}
             <Carousel.Item>
-                <div style={{  alignItems: 'center', justifyContent: 'center', height: '720px', backgroundColor: '#f8f8f8' }}>
+                <div style={{  alignItems: 'center', justifyContent: 'center', height: '656px', backgroundColor: '#f8f8f8' }}>
                     <img
                         src="src/images/2.png"
                         alt="Slide 2"
