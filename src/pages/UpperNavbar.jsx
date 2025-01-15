@@ -1,26 +1,44 @@
 import React, { useState, useEffect } from "react";
-import { Modal, Button, Form } from "react-bootstrap";
-import { Navbar, Nav, NavDropdown, Container } from "react-bootstrap";
+import { Modal, Button, Form, Navbar, Nav, NavDropdown, Container } from "react-bootstrap";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { useNavigate } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUser, faShoppingBag } from "@fortawesome/free-solid-svg-icons";
+import axios from "axios";
 
-const UpperNavbar = () => {
+const UpperNavbar = ({ cart = [] }) => {
   const [show, setShow] = useState(false);
   const [loggedInUser, setLoggedInUser] = useState(
-    () => localStorage.getItem("loggedInUser") || "" // Retrieve from local storage
+    () => localStorage.getItem("loggedInUser") || ""
   );
+  const [categories, setCategories] = useState([]);
   const [formData, setFormData] = useState({
     email: "",
     password: "",
   });
   const [errors, setErrors] = useState({});
+  const [loading, setLoading] = useState(false);
 
   const handleShow = () => setShow(true);
   const handleClose = () => setShow(false);
 
   const navigate = useNavigate();
+
+  // Fetch categories from API
+  useEffect(() => {
+    const fetchCategories = async () => {
+      try {
+        const response = await axios.get(
+          "https://fakestoreapi.com/products/categories"
+        );
+        setCategories(response.data);
+      } catch (error) {
+        console.error("Failed to fetch categories:", error);
+      }
+    };
+
+    fetchCategories();
+  }, []);
 
   const validateForm = () => {
     const newErrors = {};
@@ -50,15 +68,16 @@ const UpperNavbar = () => {
     const validationErrors = validateForm();
     if (Object.keys(validationErrors).length > 0) {
       setErrors(validationErrors);
-    } else {
-      setErrors({});
-      const emailPrefix = formData.email.split("@")[0];
-      setLoggedInUser(emailPrefix);
-      localStorage.setItem("loggedInUser", emailPrefix); // Save to local storage
-      alert("Log In Successfully!");
-      setShow(false); // Close modal
-      navigate("/home");
+      return;
     }
+
+    setErrors({});
+    const emailPrefix = formData.email.split("@")[0];
+    setLoggedInUser(emailPrefix);
+    localStorage.setItem("loggedInUser", emailPrefix); // Save to local storage
+    alert("Login Successful!");
+    setShow(false); // Close modal
+    navigate("/home");
   };
 
   const handleLogout = () => {
@@ -68,33 +87,33 @@ const UpperNavbar = () => {
   };
 
   return (
-    <Navbar bg="light" style={{ height: "50px" }}>
-      <Navbar.Brand href="/">
-        <img
-          src="/src/images/logo.png"
-          alt="Logo"
-          className="m-2"
-          style={{ maxWidth: "150px", height: "auto" }}
-        />
-      </Navbar.Brand>
+    <Navbar bg="light" expand="lg" style={{ height: "50px" }}>
       <Container>
+        <Navbar.Brand href="/" className="me-auto">
+          <img
+            src="/src/images/logo.png"
+            alt="Logo"
+            className="m-2"
+            style={{ maxWidth: "150px", height: "auto" }}
+          />
+        </Navbar.Brand>
+          <Navbar.Toggle aria-controls="basic-navbar-nav"  />
         <Navbar.Collapse id="basic-navbar-nav">
-          <Nav
-            className="ms-auto"
-            style={{ fontSize: "13px", fontWeight: "700" }}
-          >
-            <Nav.Link href="#Men">MEN</Nav.Link>
-            <Nav.Link href="#women">WOMEN</Nav.Link>
-            <Nav.Link href="#kids">KIDS</Nav.Link>
-            <Nav.Link href="#accessories">ACCESSORIES</Nav.Link>
-            <Nav.Link href="#clearance" style={{ color: "red" }}>
-              About Us
-            </Nav.Link>
+          <Nav className="me-auto" style={{ fontSize: "13px", fontWeight: "700" }}>
+            {categories.map((category, index) => (
+              <Nav.Link
+                key={index}
+                onClick={() => navigate(`/category/${category}`)}
+              >
+                {category.toUpperCase()}
+              </Nav.Link>
+            ))}
           </Nav>
 
           <Nav className="ms-auto">
             {loggedInUser ? (
               <NavDropdown title={loggedInUser} id="basic-nav-dropdown" align="end">
+                <NavDropdown.Item href="/home">Home</NavDropdown.Item>
                 <NavDropdown.Item href="#Settings">Settings</NavDropdown.Item>
                 <NavDropdown.Item href="#Contact Us">Contact Us</NavDropdown.Item>
                 <NavDropdown.Divider />
@@ -113,7 +132,7 @@ const UpperNavbar = () => {
               </Nav.Link>
             )}
 
-            <Nav.Link href="#cart" style={{ position: "relative" }}>
+            <Nav.Link href="/cart" style={{ position: "relative" }}>
               <FontAwesomeIcon icon={faShoppingBag} size="lg" />
               <span
                 style={{
@@ -127,7 +146,7 @@ const UpperNavbar = () => {
                   fontSize: "12px",
                 }}
               >
-                0
+                {cart.length}
               </span>
             </Nav.Link>
           </Nav>
@@ -183,8 +202,8 @@ const UpperNavbar = () => {
                 </a>
               </span>
             </div>
-            <Button variant="primary" type="submit">
-              Login
+            <Button variant="primary" type="submit" disabled={loading}>
+              {loading ? "Logging in..." : "Login"}
             </Button>
           </Form>
         </Modal.Body>
@@ -194,3 +213,4 @@ const UpperNavbar = () => {
 };
 
 export default UpperNavbar;
+  

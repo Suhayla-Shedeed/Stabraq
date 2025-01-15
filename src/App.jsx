@@ -1,30 +1,44 @@
-import React from 'react';
+import React, { useState } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
-import { BrowserRouter as Router, Route, Routes } from 'react-router-dom'; // Import Router components
-import './App.css'
-import LandingPage from './pages/LandingPage'
-import ModernCarousel from './pages/ModernCarousel'
-import UpperNavbar from './pages/UpperNavbar';
-import Registeration from './pages/Registeration';
-import Item from './pages/Item';
-import HomePage from './pages/HomePage';
-import ItemDetails from './pages/ItemDetails';
+import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import "./App.css";
+import LandingPage from "./pages/LandingPage";
+import ModernCarousel from "./pages/ModernCarousel";
+import UpperNavbar from "./pages/UpperNavbar";
+import Registeration from "./pages/Registeration";
+import Item from "./pages/Item";
+import HomePage from "./pages/HomePage";
+import ItemDetails from "./pages/ItemDetails";
+import CategoryPage from "./pages/CategoryPage";
+import MyCart from "./pages/MyCart";
 
 function App() {
-  // const { i18n } = useTranslation();
+  const [cart, setCart] = useState([]);
+
+  const addToCart = (product) => {
+    setCart((prevCart) => [...prevCart, product]);
+  };
 
   return (
     <Router>
+      {/* Navbar is always visible */}
+      <UpperNavbar cart={cart} />
+
       <Routes>
         <Route path="/" element={<LandingPage />} />
         <Route path="/moderncarousel" element={<ModernCarousel />} />
-        <Route path="/nav" element={<UpperNavbar />} />
         <Route path="/registeration" element={<Registeration />} />
         <Route path="/item" element={<Item />} />
-        <Route path="/home" element={<HomePage />} />
-        <Route path="/itemdetails" element={<ItemDetails />} />
-
-
+        <Route path="/home" element={<HomePage addToCart={addToCart} />} />
+        <Route path="/category/:category" element={<CategoryPage />} />
+        <Route
+          path="/itemdetails"
+          element={<ItemDetails addToCart={addToCart} />}
+        />
+        <Route
+          path="/mycart"
+          element={<MyCart cart={cart} setCart={setCart} />}
+        />
       </Routes>
     </Router>
   );

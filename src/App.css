@@ -44,12 +44,17 @@
 
 .image-container {
   overflow: hidden;
+  width: 18rem;
+  height: 14rem;
 }
 
 .item-image {
   transition: transform 0.3s ease-in-out;
+  max-width: 10rem;
+  max-height: 14rem;
+  object-fit: cover;
 }
 
 .item-card:hover .item-image {
-  transform: scale(1.1); 
+  transform: scale(0.9); 
 }
