@@ -6,8 +6,11 @@ import HomePage from './pages/HomePage'
 import ModernCarousel from './pages/ModernCarousel'
 import Navbar from './pages/UpperNavbar';
 import Registeration from './pages/Registeration';
+// import './i18n';
 
 function App() {
+  // const { i18n } = useTranslation();
+
   return (
     <Router>
       <Routes>
