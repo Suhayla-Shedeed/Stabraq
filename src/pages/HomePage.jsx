@@ -1,55 +1,51 @@
 import React from 'react';
-import { useNavigate } from "react-router-dom";
-import ModernCarousel from './ModernCarousel';
-import UpperNavbar from './UpperNavbar';
-import { Container, Row, Col } from 'react-bootstrap';
-import Item from './Item'; // Import the Item component
-import hatImage from '../images/hat.png'; // Import the image
+import { useNavigate } from 'react-router-dom';
+import { Row, Col } from 'react-bootstrap';
+import Item from './Item';
+import hatImage from '../images/hat.png';
+import hoodieImage from '../images/hoodie.png';
+
+
+const items = [
+  {
+    id: 1,
+    image: hatImage,
+    title: 'Signature Beanie',
+    price: 'EGP 249.00',
+    description: 'A cozy and stylish beanie for all seasons.',
+  },
+  {
+    id: 2,
+    image: hoodieImage,
+    title: 'Resist Hoodie Green',
+    price: 'EGP 999.00',
+    description: 'A hoodie that inspires courage and resilience.',
+  },
+];
 
 function HomePage() {
   const navigate = useNavigate();
+
+  const handleItemClick = (item) => {
+    navigate('/item-details', { state: { item } });
+  };
 
   return (
     <div>
       <UpperNavbar />
       <ModernCarousel />
-
-      <Container fluid>
-        <Row>
-          <Col xs={12} sm={6} md={3}>
+      <Row>
+        {items.map((item) => (
+          <Col xs={3} key={item.id}>
             <Item
-              image={hatImage}
-              title="Signature Beanie"
-              color="Turquoise"
-              price="EGP 249.00"
+              image={item.image}
+              title={item.title}
+              price={item.price}
+              onClick={() => handleItemClick(item)}
             />
           </Col>
-          <Col xs={12} sm={6} md={3}>
-            <Item
-              image="src/images/Hoodie.png"
-              title="Signature Hoodie"
-              color="Black"
-              price="EGP 499.00"
-            />
-          </Col>
-          <Col xs={12} sm={6} md={3}>
-            <Item
-              image={hatImage}
-              title="Winter Beanie"
-              color="Gray"
-              price="EGP 299.00"
-            />
-          </Col>
-          <Col xs={12} sm={6} md={3}>
-            <Item
-              image={hatImage}
-              title="Classic Beanie"
-              color="Red"
-              price="EGP 199.00"
-            />
-          </Col>
-        </Row>
-      </Container>
+        ))}
+      </Row>
     </div>
   );
 }
