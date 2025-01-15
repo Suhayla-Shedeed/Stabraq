@@ -1,7 +1,11 @@
 import React, { useState } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import UpperNavbar from "./UpperNavbar";
+import { useNavigate } from "react-router-dom";
+
 const Registeration = () => {
+  const navigate = useNavigate();
+
   const [formData, setFormData] = useState({
     firstName: "",
     lastName: "",
@@ -10,6 +14,9 @@ const Registeration = () => {
     email: "",
     address: "",
   });
+
+ 
+
 
   const [errors, setErrors] = useState({});
 
@@ -26,9 +33,7 @@ const Registeration = () => {
     if (!formData.password) {
       newErrors.password = "Password is required.";
     } else if (
-      !/(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}/.test(
-        formData.password
-      )
+      !/(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}/.test(formData.password)
     ) {
       newErrors.password =
         "Password must be at least 8 characters long, include one uppercase letter, one digit, and one special character.";
@@ -58,9 +63,11 @@ const Registeration = () => {
       setErrors({});
       console.log("Form Data Submitted:", formData);
       alert("Account Created Successfully!");
+      navigate("/"); 
     }
   };
 
+  
   return (
     <>
       <UpperNavbar />
@@ -128,7 +135,6 @@ const Registeration = () => {
           <div className="mb-1">
             <label htmlFor="password" className="form-label d-flex">
               Password
-              {/* <span style={{fontSize:"10px" , color:"red"}}>Must be at least 8 characters, include 1 digit, 1 uppercase letter, and 1 special character</span> */}
             </label>
             <input
               type="password"
@@ -178,7 +184,7 @@ const Registeration = () => {
           </div>
 
           {/* Submit Button */}
-          <button type="submit" className="btn btn-dark w-50 mt-3">
+          <button type="submit" className="btn btn-dark w-50 mt-3" >
             Create An Account
           </button>
         </form>

@@ -2,11 +2,12 @@ import React from 'react';
 import "bootstrap/dist/css/bootstrap.min.css";
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom'; // Import Router components
 import './App.css'
-import HomePage from './pages/HomePage'
+import LandingPage from './pages/LandingPage'
 import ModernCarousel from './pages/ModernCarousel'
-import Navbar from './pages/UpperNavbar';
+import UpperNavbar from './pages/UpperNavbar';
 import Registeration from './pages/Registeration';
-// import './i18n';
+import Item from './pages/Item';
+import HomePage from './pages/HomePage';
 
 function App() {
   // const { i18n } = useTranslation();
@@ -14,10 +15,13 @@ function App() {
   return (
     <Router>
       <Routes>
-        <Route path="/" element={<HomePage />} />
+        <Route path="/" element={<LandingPage />} />
         <Route path="/moderncarousel" element={<ModernCarousel />} />
-        <Route path="/nav" element={<Navbar />} />
+        <Route path="/nav" element={<UpperNavbar />} />
         <Route path="/registeration" element={<Registeration />} />
+        <Route path="/item" element={<Item />} />
+        <Route path="/home" element={<HomePage />} />
+
 
       </Routes>
     </Router>

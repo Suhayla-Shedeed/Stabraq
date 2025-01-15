@@ -19,17 +19,58 @@ const UpperNavbar = () => {
   const handleClose = () => setShow(false);
 
   const navigate = useNavigate();
-  const goToHomePage = () => {
+  const goToLandingPage = () => {
     navigate("/");
   };
-  const goToRegPage = () => {
-    navigate("/registeration");
+
+
+  const [formData, setFormData] = useState({
+    email: "",
+    password: "",
+  });
+
+  const [errors, setErrors] = useState({});
+
+  // Validation functions
+  const validateForm = () => {
+    const newErrors = {};
+
+    // Email validation
+    if (!formData.email) {
+      newErrors.email = "Email is required.";
+    } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email)) {
+      newErrors.email = "Email format is invalid.";
+    }
+
+    // Password validation
+    if (!formData.password) {
+      newErrors.password = "Password is required.";
+    } else if (
+      !/^(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/.test(
+        formData.password
+      )
+    ) {
+      newErrors.password =
+        "Password must be at least 8 characters, include one uppercase letter, one digit, and one special character.";
+    }
+
+    return newErrors;
   };
-  const [counter, setCounter] = useState(0);
-  // Function to increment the counter
-  const handleClick = () => {
-    setCounter(counter + 1);
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    const validationErrors = validateForm();
+    if (Object.keys(validationErrors).length > 0) {
+      setErrors(validationErrors);
+    } else {
+      setErrors({});
+      console.log("Form Data Submitted:", formData);
+      alert("Log In Successfully!");
+      setShow(false); 
+      navigate("/home");
+    }
   };
+
   return (
     <Navbar bg="light" style={{ height: "50px" }}>
       <Navbar.Brand href="#home">
@@ -38,7 +79,7 @@ const UpperNavbar = () => {
           alt="Logo"
           className="m-2"
           style={{ maxWidth: "150px", height: "auto" }}
-          onClick={goToHomePage}
+          onClick={goToLandingPage}
         />
       </Navbar.Brand>
       <Container>
@@ -82,17 +123,15 @@ const UpperNavbar = () => {
                 onClick={handleShow}
               />
             </Nav.Link>
-            {/* <Nav.Link href="#favorites">
-              <FontAwesomeIcon icon={faHeart} size="lg" />
-            </Nav.Link> */}
+
             <Nav.Link href="#cart" style={{ position: "relative" }}>
               <FontAwesomeIcon icon={faShoppingBag} size="lg" />
               {/* Cart badge */}
               <span
                 style={{
                   position: "absolute",
-                  //   top: "-5px",
-                  right: "-10px",
+                  top: "16px",
+                  right: "-7px",
                   backgroundColor: "orange",
                   color: "white",
                   borderRadius: "50%",
@@ -112,15 +151,37 @@ const UpperNavbar = () => {
           <Modal.Title>Login</Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          <Form>
+          <Form onSubmit={handleSubmit}>
             <Form.Group className="mb-3" controlId="formBasicEmail">
               <Form.Label>Email address</Form.Label>
-              <Form.Control type="email" placeholder="Enter email" />
+              <Form.Control
+                type="email"
+                placeholder="Enter email"
+                value={formData.email}
+                onChange={(e) =>
+                  setFormData({ ...formData, email: e.target.value })
+                }
+                isInvalid={!!errors.email}
+              />
+              <Form.Control.Feedback type="invalid">
+                {errors.email}
+              </Form.Control.Feedback>
             </Form.Group>
 
             <Form.Group className="mb-2" controlId="formBasicPassword">
               <Form.Label>Password</Form.Label>
-              <Form.Control type="password" placeholder="Password" />
+              <Form.Control
+                type="password"
+                placeholder="Password"
+                value={formData.password}
+                onChange={(e) =>
+                  setFormData({ ...formData, password: e.target.value })
+                }
+                isInvalid={!!errors.password}
+              />
+              <Form.Control.Feedback type="invalid">
+                {errors.password}
+              </Form.Control.Feedback>
             </Form.Group>
             {/* Sign Up Link */}
             <div className="mt-1 mb-2">

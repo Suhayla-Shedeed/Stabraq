@@ -35,3 +35,21 @@
 .form-label{
   font-weight: 600;
 }
+
+/*                             Item CSS                                   */
+.item-card {
+  overflow: hidden;
+  transition: transform 0.3s ease-in-out;
+}
+
+.image-container {
+  overflow: hidden;
+}
+
+.item-image {
+  transition: transform 0.3s ease-in-out;
+}
+
+.item-card:hover .item-image {
+  transform: scale(1.1); 
+}
