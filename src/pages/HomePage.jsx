@@ -1,114 +1,33 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Row, Col, Container } from 'react-bootstrap';
 import Item from './Item';
-import hatImage from '../images/hat.png';
-import hoodieImage from '../images/hoodie.png';
 import UpperNavbar from "./UpperNavbar";
 import ModernCarousel from './ModernCarousel';
-import ItemDetails from './ItemDetails';
-
-
-const items = [
-  {
-    id: 1,
-    image: hatImage,
-    title: 'Signature Beanie',
-    color:'Turquoise',
-    price: 'EGP 249.00',
-    description: 'A cozy and stylish beanie for all seasons.',
-  },
-  {
-    id: 2,
-    image: hoodieImage,
-    title: 'Resist Hoodie Green',
-    color:'Olive',
-    price: 'EGP 999.00',
-    description: 'A hoodie that inspires courage and resilience.',
-  },{
-    id: 3,
-    image: hatImage,
-    title: 'Signature Beanie',
-    color:'Turquoise',
-    price: 'EGP 249.00',
-    description: 'A cozy and stylish beanie for all seasons.',
-  },
-  {
-    id: 4,
-    image: hoodieImage,
-    title: 'Resist Hoodie Green',
-    color:'Olive',
-    price: 'EGP 999.00',
-    description: 'A hoodie that inspires courage and resilience.',
-  },{
-    id: 5,
-    image: hatImage,
-    title: 'Signature Beanie',
-    color:'Turquoise',
-    price: 'EGP 249.00',
-    description: 'A cozy and stylish beanie for all seasons.',
-  },
-  {
-    id: 6,
-    image: hoodieImage,
-    title: 'Resist Hoodie Green',
-    color:'Olive',
-    price: 'EGP 999.00',
-    description: 'A hoodie that inspires courage and resilience.',
-  },
-];
+import axios from 'axios';
 
 function HomePage() {
-  const items = [
-    {
-      id: 1,
-      image: hatImage,
-      title: 'Signature Beanie',
-      color: 'Turquoise',
-      price: 'EGP 249.00',
-      description: 'A cozy and stylish beanie for all seasons.',
-    },
-    {
-      id: 2,
-      image: hoodieImage,
-      title: 'Resist Hoodie Green',
-      color: 'Olive',
-      price: 'EGP 999.00',
-      description: 'A hoodie that inspires courage and resilience.',
-    },
-    {
-      id: 3,
-      image: hatImage,
-      title: 'Signature Beanie',
-      color: 'Turquoise',
-      price: 'EGP 249.00',
-      description: 'A cozy and stylish beanie for all seasons.',
-    },
-    {
-      id: 4,
-      image: hoodieImage,
-      title: 'Resist Hoodie Green',
-      color: 'Olive',
-      price: 'EGP 999.00',
-      description: 'A hoodie that inspires courage and resilience.',
-    },
-    {
-      id: 5,
-      image: hatImage,
-      title: 'Signature Beanie',
-      color: 'Turquoise',
-      price: 'EGP 249.00',
-      description: 'A cozy and stylish beanie for all seasons.',
-    },
-    {
-      id: 6,
-      image: hoodieImage,
-      title: 'Resist Hoodie Green',
-      color: 'Olive',
-      price: 'EGP 999.00',
-      description: 'A hoodie that inspires courage and resilience.',
-    },
-  ];
+  const [products, setProducts] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+
+  useEffect(() => {
+    const fetchProducts = async () => {
+      try {
+        const response = await axios.get('https://fakestoreapi.com/products');
+        setProducts(response.data);
+        setLoading(false);
+      } catch (err) {
+        setError('Failed to fetch products');
+        setLoading(false);
+      }
+    };
+
+    fetchProducts();
+  }, []);
+
+  if (loading) return <p>Loading...</p>;
+  if (error) return <p>{error}</p>;
 
   const navigate = useNavigate();
 
@@ -119,15 +38,15 @@ function HomePage() {
       <Container fluid>
         <h2 className="mt-3">Shop New Releases</h2>
         <Row>
-          {items.map((item, index) => (
-            <Col xs={12} sm={6} md={3} key={index}>
+          {products.map((product) => (
+            <Col xs={12} sm={6} md={3} key={product.id}>
               <Item
-                image={item.image}
-                title={item.title}
-                color={item.color}
-                price={item.price}
-                description={item.description}
-                onClick={() => navigate('/itemdetails', { state: { item } })} // Pass navigation as a prop
+                image={product.image}
+                title={product.title}
+                color={product.category} 
+                price={`$${product.price}`}
+                description={product.description}
+                onClick={() => navigate('/itemdetails', { state: { product } })} // Pass product data
               />
             </Col>
           ))}
