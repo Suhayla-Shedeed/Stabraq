@@ -3,6 +3,7 @@ import React, { useState, useEffect } from "react";
 import { useLocation } from "react-router-dom";
 import { Row, Col, Button, Container, Alert } from "react-bootstrap";
 import UpperNavbar from "./UpperNavbar";
+import { motion } from "framer-motion"; // Import Framer Motion
 
 const ItemDetails = ({ addToCart }) => {
   const location = useLocation();
@@ -56,8 +57,12 @@ const ItemDetails = ({ addToCart }) => {
   }
 
   return (
-    <>
-      <Container className="mt-5">
+<motion.div
+      initial={{ opacity: 0, y: 20 }} // Start position
+      animate={{ opacity: 1, y: 0 }} // End position
+      exit={{ opacity: 0, y: 20 }} // Exit animation
+      transition={{ duration: 0.5 }} // Animation duration
+    >      <Container className="mt-5">
         <Row className="d-flex mt-3 mx-auto">
           {/* Image Section */}
           <Col xs={12} sm={6} md={6}>
@@ -116,7 +121,8 @@ const ItemDetails = ({ addToCart }) => {
           </Col>
         </Row>
       </Container>
-    </>
+      </motion.div>
+
   );
 };
 

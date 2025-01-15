@@ -1,6 +1,7 @@
   import React, { useEffect } from "react";
   import { Container, Button } from "react-bootstrap";
   import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
+  import { motion } from "framer-motion"; // Import Framer Motion
 
   const MyCart = ({ cart, setCart }) => {
     // Load cart items from local storage on component mount
@@ -46,8 +47,14 @@
     };
     
     return (
+      <motion.div
+      initial={{ opacity: 0, y: 20 }} 
+      animate={{ opacity: 1, y: 0 }} 
+      exit={{ opacity: 0, y: 20 }} 
+      transition={{ duration: 0.5 }} 
+    >
       <Container>
-        <h2 className="mt-3">Your Cart</h2>
+        <h2 className="mt-3 mb-3">Your Cart</h2>
         <DragDropContext onDragEnd={handleDragEnd}>
           <Droppable droppableId="cart">
             {(provided) => (
@@ -129,6 +136,8 @@
           </Droppable>
         </DragDropContext>
       </Container>
+          </motion.div>
+      
     );
   };
 

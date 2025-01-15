@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import axios from "axios";
+import { motion } from "framer-motion"; // Import Framer Motion
 import UpperNavbar from "./UpperNavbar";
 
 const CategoryPage = () => {
@@ -29,16 +30,21 @@ const CategoryPage = () => {
   }, [category]);
   // Refetch products when the category changes
 
-  if (loading) {
-    return <p>Loading products...</p>;
-  }
+  // if (loading) {
+  //   return <p>Loading products...</p>;
+  // }
 
   if (error) {
     return <p>{error}</p>;
   }
 
   return (
-    <div>
+    <motion.div
+      initial={{ opacity: 0, y: 20 }} // Start position
+      animate={{ opacity: 1, y: 0 }} // End position
+      exit={{ opacity: 0, y: 20 }} // Exit animation
+      transition={{ duration: 0.5 }} // Animation duration
+    >
       <h2
         className="mt-3 mb-3"
         style={{
@@ -51,21 +57,35 @@ const CategoryPage = () => {
       >
         {category.toUpperCase()}
       </h2>
-      <div
+      <motion.div
         className="ms-3"
         style={{ display: "flex", flexWrap: "wrap", gap: "20px" }}
+        initial="hidden"
+        animate="visible"
+        variants={{
+          hidden: { opacity: 0 },
+          visible: {
+            opacity: 1,
+            transition: { staggerChildren: 0.2 }, // Delay between children
+          },
+        }}
       >
         {products.map((product) => (
-          <div
+          <motion.div
             key={product.id}
             style={{
               border: "1px solid #ddd",
               padding: "10px",
               borderRadius: "5px",
               width: "200px",
-              cursor: "pointer", 
+              cursor: "pointer",
             }}
-            onClick={() => navigate("/itemdetails", { state: { product } })} 
+            onClick={() => navigate("/itemdetails", { state: { product } })}
+            whileHover={{ scale: 1.05 }} // Slight zoom on hover
+            whileTap={{ scale: 0.95 }} // Slight shrink on tap
+            initial={{ opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.3 }}
           >
             <img
               src={product.image}
@@ -78,10 +98,10 @@ const CategoryPage = () => {
             <p style={{ fontSize: "14px", color: "#888" }}>
               ${product.price.toFixed(2)}
             </p>
-          </div>
+          </motion.div>
         ))}
-      </div>
-    </div>
+      </motion.div>
+    </motion.div>
   );
 };
 
