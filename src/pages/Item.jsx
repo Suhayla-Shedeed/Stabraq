@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Card, Button } from "react-bootstrap";
 import axios from 'axios';
 
-const Item = ({ image, title, color, price,category , description, onClick }) => {
+const Item = ({ image, title, color, price,category  ,  description, onClick }) => {
   return (
     <Card className="item-card" style={{  margin: "1rem auto" }}>
       <div className="image-container" onClick={onClick} style={{ cursor: 'pointer' }}>
@@ -14,7 +14,6 @@ const Item = ({ image, title, color, price,category , description, onClick }) =>
         <Card.Text>
           Price: <strong>{price}</strong>
         </Card.Text>
-        <Button variant="primary"><strong>Add to Cart</strong></Button>
       </Card.Body>
     </Card>
   );

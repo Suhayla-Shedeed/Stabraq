@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+// Import necessary libraries
+import React, { useState, useEffect } from "react";
 import { useLocation } from "react-router-dom";
 import { Row, Col, Button, Container, Alert } from "react-bootstrap";
 import UpperNavbar from "./UpperNavbar";
@@ -7,6 +8,38 @@ const ItemDetails = ({ addToCart }) => {
   const location = useLocation();
   const { product } = location.state || {}; // Use "product" for clarity if passed from HomePage
   const [selectedSize, setSelectedSize] = useState(null); // Track selected size
+  const [cart, setCart] = useState([]); // Local cart state
+
+  // Load cart items from local storage on component mount
+  useEffect(() => {
+    const storedCart = JSON.parse(localStorage.getItem("cartItems"));
+    if (storedCart) {
+      setCart(storedCart);
+    }
+  }, []);
+
+  // Save cart items to local storage whenever the cart changes
+  useEffect(() => {
+    localStorage.setItem("cartItems", JSON.stringify(cart));
+  }, [cart]);
+
+  const handleAddToCart = () => {
+    if (!selectedSize) {
+      alert("Please select a size before adding to the cart.");
+      return;
+    }
+
+    // Add product to cart with selected size
+    const updatedCart = [...cart, { ...product, size: selectedSize }];
+    setCart(updatedCart);
+
+    // Call the addToCart prop function if provided
+    if (addToCart) {
+      addToCart({ ...product, size: selectedSize });
+    }
+
+    alert("Item added to cart successfully!");
+  };
 
   if (!product) {
     return (
@@ -21,17 +54,6 @@ const ItemDetails = ({ addToCart }) => {
       </div>
     );
   }
-
-  const handleAddToCart = () => {
-    if (!selectedSize) {
-      alert("Please select a size before adding to the cart.");
-      return;
-    }
-
-    // Add product to cart with selected size
-    addToCart({ ...product, size: selectedSize });
-    alert("Item added to cart successfully!");
-  };
 
   return (
     <>
