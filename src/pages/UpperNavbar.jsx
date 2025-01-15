@@ -85,8 +85,6 @@ const UpperNavbar = () => {
       <Container>
         {/* Logo at the start */}
 
-        {/* Toggler for mobile view */}
-        <Navbar.Toggle aria-controls="basic-navbar-nav" />
 
         {/* Navigation Links */}
         <Navbar.Collapse id="basic-navbar-nav">

@@ -1,8 +1,10 @@
 import React from "react";
 import { useLocation } from "react-router-dom";
 import { Row, Col, Button, Container } from "react-bootstrap";
+import UpperNavbar from "./UpperNavbar";
 
-function ItemDetails() {
+
+export function ItemDetails() {
   const location = useLocation();
   const { item } = location.state || {}; // Get item data from state
 
@@ -11,19 +13,21 @@ function ItemDetails() {
   }
 
   return (
-    <Container fluid>
-      <Row>
+    <>
+    <UpperNavbar />
+    <div className="container mt-5">
+
+      <Row className="d-flex mt-3 mx-auto">
         <Col xs={12} sm={6} md={6}>
           <img
             src={item.image}
             alt={item.title}
             style={{
-              width: "100%",
+              width: "89%",
               height: "auto",
               borderRadius: "8px",
               objectFit: "cover",
-            }}
-          />
+            }} />
         </Col>
 
         {/* Details Section */}
@@ -69,7 +73,7 @@ function ItemDetails() {
           </div>
         </Col>
       </Row>
-    </Container>
+    </div></>
   );
 }
 
