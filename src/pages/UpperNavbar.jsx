@@ -88,7 +88,7 @@ const UpperNavbar = ({ cart = [] }) => {
 
   return (
     <Navbar bg="light" expand="lg" style={{ height: "50px" }}>
-      <Container>
+      <Container fluid>
         <Navbar.Brand href="/" className="me-auto">
           <img
             src="/src/images/logo.png"
@@ -98,8 +98,8 @@ const UpperNavbar = ({ cart = [] }) => {
           />
         </Navbar.Brand>
           <Navbar.Toggle aria-controls="basic-navbar-nav"  />
-        <Navbar.Collapse id="basic-navbar-nav">
-          <Nav className="me-auto" style={{ fontSize: "13px", fontWeight: "700" }}>
+        <Navbar.Collapse id="basic-navbar-nav" >
+          <Nav className="me-auto ms-auto" style={{ fontSize: "13px", fontWeight: "700" }}>
             {categories.map((category, index) => (
               <Nav.Link
                 key={index}
@@ -132,23 +132,27 @@ const UpperNavbar = ({ cart = [] }) => {
               </Nav.Link>
             )}
 
-            <Nav.Link href="/cart" style={{ position: "relative" }}>
-              <FontAwesomeIcon icon={faShoppingBag} size="lg" />
-              <span
-                style={{
-                  position: "absolute",
-                  top: "16px",
-                  right: "-7px",
-                  backgroundColor: "orange",
-                  color: "white",
-                  borderRadius: "50%",
-                  padding: "2px 6px",
-                  fontSize: "12px",
-                }}
-              >
-                {cart.length}
-              </span>
-            </Nav.Link>
+<Nav.Link
+  onClick={() => navigate("/mycart", { state: { cart } })}
+  style={{ position: "relative" }}
+>
+  <FontAwesomeIcon icon={faShoppingBag} size="lg" />
+  <span
+    style={{
+      position: "absolute",
+      top: "16px",
+      right: "-7px",
+      backgroundColor: "orange",
+      color: "white",
+      borderRadius: "50%",
+      padding: "2px 6px",
+      fontSize: "12px",
+    }}
+  >
+    {cart.length}
+  </span>
+</Nav.Link>
+
           </Nav>
         </Navbar.Collapse>
       </Container>

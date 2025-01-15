@@ -64,6 +64,7 @@ function HomePage() {
                 category={product.category} 
                 price={`$${product.price}`}
                 description={product.description}
+                quantity={1}
                 onClick={() => navigate('/itemdetails', { state: { product } })} // Pass product data
               />
             </Col>
