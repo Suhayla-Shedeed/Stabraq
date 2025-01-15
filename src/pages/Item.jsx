@@ -1,7 +1,7 @@
 import React from "react";
 import { Card, Button } from "react-bootstrap";
 
-const Item = ({ image, title, color, price, description, onClick }) => {
+const Item = ({ image, title, color, price,category , description, onClick }) => {
   return (
     <Card className="item-card" style={{ width: "18rem", margin: "1rem auto" }}>
       <div className="image-container" onClick={onClick} style={{ cursor: 'pointer' }}>
