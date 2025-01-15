@@ -5,6 +5,8 @@ import Item from './Item';
 import UpperNavbar from "./UpperNavbar";
 import ModernCarousel from './ModernCarousel';
 import axios from 'axios';
+import { motion } from "framer-motion"; // Import Framer Motion
+
 
 function HomePage() {
   const [products, setProducts] = useState([]);
@@ -52,8 +54,12 @@ function HomePage() {
   }
 
   return (
-    <div>
-      <Container fluid>
+<motion.div
+      initial={{ opacity: 0, y: 20 }} // Start position
+      animate={{ opacity: 1, y: 0 }} // End position
+      exit={{ opacity: 0, y: 20 }} // Exit animation
+      transition={{ duration: 0.5 }} // Animation duration
+    >      <Container fluid>
         <h2 className="mt-3">Shop New Releases</h2>
         <Row>
           {products.map((product) => (
@@ -71,7 +77,7 @@ function HomePage() {
           ))}
         </Row>
       </Container>
-    </div>
+      </motion.div>
   );
 }
 

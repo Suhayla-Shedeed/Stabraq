@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import UpperNavbar from "./UpperNavbar";
 import { useNavigate } from "react-router-dom";
+import { motion } from "framer-motion"; // Import Framer Motion
+
 
 const Registeration = () => {
   const navigate = useNavigate();
@@ -69,8 +71,12 @@ const Registeration = () => {
 
   
   return (
-    <>
-      <div className="container mt-5">
+<motion.div
+      initial={{ opacity: 0, y: 20 }} // Start position
+      animate={{ opacity: 1, y: 0 }} // End position
+      exit={{ opacity: 0, y: 20 }} // Exit animation
+      transition={{ duration: 0.5 }} // Animation duration
+    >      <div className="container mt-5">
         <h2 className="text-center ">CREATE ACCOUNT</h2>
         <form
           onSubmit={handleSubmit}
@@ -188,7 +194,7 @@ const Registeration = () => {
           </button>
         </form>
       </div>
-    </>
+      </motion.div>
   );
 };
 
