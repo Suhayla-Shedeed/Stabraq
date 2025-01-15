@@ -1,48 +1,36 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Modal, Button, Form } from "react-bootstrap";
 import { Navbar, Nav, NavDropdown, Container } from "react-bootstrap";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { useNavigate } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-  faUser,
-  faHeart,
-  faShoppingBag,
-} from "@fortawesome/free-solid-svg-icons";
-import Registeration from "./Registeration";
-import { useTranslation } from "react-i18next";
+import { faUser, faShoppingBag } from "@fortawesome/free-solid-svg-icons";
 
 const UpperNavbar = () => {
   const [show, setShow] = useState(false);
+  const [loggedInUser, setLoggedInUser] = useState(
+    () => localStorage.getItem("loggedInUser") || "" // Retrieve from local storage
+  );
+  const [formData, setFormData] = useState({
+    email: "",
+    password: "",
+  });
+  const [errors, setErrors] = useState({});
 
   const handleShow = () => setShow(true);
   const handleClose = () => setShow(false);
 
   const navigate = useNavigate();
-  const goToLandingPage = () => {
-    navigate("/");
-  };
 
-
-  const [formData, setFormData] = useState({
-    email: "",
-    password: "",
-  });
-
-  const [errors, setErrors] = useState({});
-
-  // Validation functions
   const validateForm = () => {
     const newErrors = {};
 
-    // Email validation
     if (!formData.email) {
       newErrors.email = "Email is required.";
     } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email)) {
       newErrors.email = "Email format is invalid.";
     }
 
-    // Password validation
     if (!formData.password) {
       newErrors.password = "Password is required.";
     } else if (
@@ -64,35 +52,38 @@ const UpperNavbar = () => {
       setErrors(validationErrors);
     } else {
       setErrors({});
-      console.log("Form Data Submitted:", formData);
+      const emailPrefix = formData.email.split("@")[0];
+      setLoggedInUser(emailPrefix);
+      localStorage.setItem("loggedInUser", emailPrefix); // Save to local storage
       alert("Log In Successfully!");
-      setShow(false); 
+      setShow(false); // Close modal
       navigate("/home");
     }
   };
 
+  const handleLogout = () => {
+    setLoggedInUser("");
+    localStorage.removeItem("loggedInUser"); // Clear from local storage
+    navigate("/");
+  };
+
   return (
     <Navbar bg="light" style={{ height: "50px" }}>
-      <Navbar.Brand href="#home">
+      <Navbar.Brand href="/">
         <img
           src="/src/images/logo.png"
           alt="Logo"
           className="m-2"
           style={{ maxWidth: "150px", height: "auto" }}
-          onClick={goToLandingPage}
         />
       </Navbar.Brand>
       <Container>
-        {/* Logo at the start */}
-
-
-        {/* Navigation Links */}
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav
-            className=" ms-auto"
+            className="ms-auto"
             style={{ fontSize: "13px", fontWeight: "700" }}
           >
-            <Nav.Link href="https://stabraq.com/collections/men">MEN</Nav.Link>
+            <Nav.Link href="#Men">MEN</Nav.Link>
             <Nav.Link href="#women">WOMEN</Nav.Link>
             <Nav.Link href="#kids">KIDS</Nav.Link>
             <Nav.Link href="#accessories">ACCESSORIES</Nav.Link>
@@ -101,30 +92,29 @@ const UpperNavbar = () => {
             </Nav.Link>
           </Nav>
 
-          {/* Language and Currency Dropdown at the end */}
           <Nav className="ms-auto">
-            <NavDropdown title="EN / EGP" id="basic-nav-dropdown" align="end">
-              <NavDropdown.Item href="#english">English</NavDropdown.Item>
-              <NavDropdown.Item href="#arabic">Arabic</NavDropdown.Item>
-              <NavDropdown.Divider />
-              <NavDropdown.Item href="/" style={{ color: "red" }}>
-                Log Out
-              </NavDropdown.Item>
-            </NavDropdown>
-
-            {/* Icons Section */}
-            <Nav.Link>
-              <FontAwesomeIcon
-                icon={faUser}
-                size="lg"
-                variant="primary"
-                onClick={handleShow}
-              />
-            </Nav.Link>
+            {loggedInUser ? (
+              <NavDropdown title={loggedInUser} id="basic-nav-dropdown" align="end">
+                <NavDropdown.Item href="#Settings">Settings</NavDropdown.Item>
+                <NavDropdown.Item href="#Contact Us">Contact Us</NavDropdown.Item>
+                <NavDropdown.Divider />
+                <NavDropdown.Item onClick={handleLogout} style={{ color: "red" }}>
+                  Log Out
+                </NavDropdown.Item>
+              </NavDropdown>
+            ) : (
+              <Nav.Link>
+                <FontAwesomeIcon
+                  icon={faUser}
+                  size="lg"
+                  variant="primary"
+                  onClick={handleShow}
+                />
+              </Nav.Link>
+            )}
 
             <Nav.Link href="#cart" style={{ position: "relative" }}>
               <FontAwesomeIcon icon={faShoppingBag} size="lg" />
-              {/* Cart badge */}
               <span
                 style={{
                   position: "absolute",
@@ -143,6 +133,7 @@ const UpperNavbar = () => {
           </Nav>
         </Navbar.Collapse>
       </Container>
+
       {/* Login Modal */}
       <Modal show={show} onHide={handleClose} centered>
         <Modal.Header closeButton>
@@ -181,7 +172,6 @@ const UpperNavbar = () => {
                 {errors.password}
               </Form.Control.Feedback>
             </Form.Group>
-            {/* Sign Up Link */}
             <div className="mt-1 mb-2">
               <span style={{ fontSize: "12px" }}>
                 Don't have an account?{" "}
@@ -193,7 +183,6 @@ const UpperNavbar = () => {
                 </a>
               </span>
             </div>
-
             <Button variant="primary" type="submit">
               Login
             </Button>
