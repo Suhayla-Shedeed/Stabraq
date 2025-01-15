@@ -63,7 +63,7 @@ const Registeration = () => {
       setErrors({});
       console.log("Form Data Submitted:", formData);
       alert("Account Created Successfully!");
-      navigate("/"); 
+      navigate("/home"); 
     }
   };
 
