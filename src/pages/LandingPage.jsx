@@ -11,7 +11,6 @@ function HomePage() {
   return (
     
     <div>
-        <UpperNavbar/>
         <ModernCarousel/>
     </div>
   );

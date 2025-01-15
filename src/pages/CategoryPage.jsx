@@ -1,0 +1,88 @@
+import React, { useState, useEffect } from "react";
+import { useParams, useNavigate } from "react-router-dom";
+import axios from "axios";
+import UpperNavbar from "./UpperNavbar";
+
+const CategoryPage = () => {
+  const { category } = useParams(); // Extract the category from the URL
+  const navigate = useNavigate(); // Initialize the navigate function
+  const [products, setProducts] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+
+  useEffect(() => {
+    const fetchProducts = async () => {
+      try {
+        setLoading(true);
+        const response = await axios.get(
+          `https://fakestoreapi.com/products/category/${category}`
+        );
+        setProducts(response.data);
+        setLoading(false);
+      } catch (err) {
+        setError("Failed to fetch products");
+        setLoading(false);
+      }
+    };
+
+    fetchProducts();
+  }, [category]);
+  // Refetch products when the category changes
+
+  if (loading) {
+    return <p>Loading products...</p>;
+  }
+
+  if (error) {
+    return <p>{error}</p>;
+  }
+
+  return (
+    <div>
+      <h2
+        className="mt-3 mb-3"
+        style={{
+          fontFamily: "'Varela Round', sans-serif",
+          fontWeight: "bold",
+          fontSize: "2rem",
+          color: "darkblack",
+          textShadow: "1px 1px 3px lightgray",
+        }}
+      >
+        {category.toUpperCase()}
+      </h2>
+      <div
+        className="ms-3"
+        style={{ display: "flex", flexWrap: "wrap", gap: "20px" }}
+      >
+        {products.map((product) => (
+          <div
+            key={product.id}
+            style={{
+              border: "1px solid #ddd",
+              padding: "10px",
+              borderRadius: "5px",
+              width: "200px",
+              cursor: "pointer", 
+            }}
+            onClick={() => navigate("/itemdetails", { state: { product } })} 
+          >
+            <img
+              src={product.image}
+              alt={product.title}
+              style={{ width: "100%", height: "150px", objectFit: "contain" }}
+            />
+            <h5 style={{ fontSize: "16px", margin: "10px 0" }}>
+              {product.title}
+            </h5>
+            <p style={{ fontSize: "14px", color: "#888" }}>
+              ${product.price.toFixed(2)}
+            </p>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+};
+
+export default CategoryPage;

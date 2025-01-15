@@ -70,7 +70,6 @@ const Registeration = () => {
   
   return (
     <>
-      <UpperNavbar />
       <div className="container mt-5">
         <h2 className="text-center ">CREATE ACCOUNT</h2>
         <form
