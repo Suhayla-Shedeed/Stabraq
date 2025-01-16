@@ -21,7 +21,6 @@ function App() {
 
   return (
     <Router>
-      {/* Navbar is always visible */}
       <UpperNavbar cart={cart} />
 
       <Routes>

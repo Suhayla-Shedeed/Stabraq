@@ -2,7 +2,6 @@ import React from 'react';
 import { useNavigate } from "react-router-dom";
 import ModernCarousel from './ModernCarousel';
 import { motion } from "framer-motion"; 
-import {RemoveScrollBar} from 'react-remove-scroll-bar';
 
 
 // import "../i18n";
@@ -12,7 +11,7 @@ function HomePage() {
 
   const navigate = useNavigate();
   return (
-    <><RemoveScrollBar /><motion.div
+    <><motion.div
       initial={{ opacity: 0, y: 20 }} // Start position
       animate={{ opacity: 1, y: 0 }} // End position
       exit={{ opacity: 0, y: 20 }} // Exit animation
