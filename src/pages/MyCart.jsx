@@ -1,57 +1,57 @@
-  import React, { useEffect } from "react";
-  import { Container, Button } from "react-bootstrap";
-  import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
-  import { motion } from "framer-motion"; // Import Framer Motion
+import React, { useEffect } from "react";
+import { Container, Button } from "react-bootstrap";
+import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
+import { motion } from "framer-motion"; // Import Framer Motion
 
-  const MyCart = ({ cart, setCart }) => {
-    // Load cart items from local storage on component mount
-    useEffect(() => {
-      const storedCart = JSON.parse(localStorage.getItem("cartItems"));
-      if (storedCart) {
-        // Ensure each item has a default quantity of 1
-        const updatedCart = storedCart.map((item) => ({
-          ...item,
-          quantity: item.quantity || 1, // Default quantity to 1 if not set
-        }));
-        setCart(updatedCart);
-      }
-    }, [setCart]);
-
-    // Save cart items to local storage whenever the cart changes
-    useEffect(() => {
-      localStorage.setItem("cartItems", JSON.stringify(cart));
-    }, [cart]);
-
-    const handleDragEnd = (result) => {
-      if (!result.destination) return;
-
-      const items = Array.from(cart);
-      const [reorderedItem] = items.splice(result.source.index, 1);
-      items.splice(result.destination.index, 0, reorderedItem);
-
-      setCart(items);
-    };
-
-    const removeFromCart = (id) => {
-      const updatedCart = cart.filter((item) => item.id !== id);
+const MyCart = ({ cart, setCart }) => {
+  // Load cart items from local storage on component mount
+  useEffect(() => {
+    const storedCart = JSON.parse(localStorage.getItem("cartItems"));
+    if (storedCart) {
+      // Ensure each item has a default quantity of 1
+      const updatedCart = storedCart.map((item) => ({
+        ...item,
+        quantity: item.quantity || 1, // Default quantity to 1 if not set
+      }));
       setCart(updatedCart);
-    };
+    }
+  }, [setCart]);
 
-    const updateQuantity = (id, increment) => {
-      const updatedCart = cart.map((item) =>
-        item.id === id
-          ? { ...item, quantity: Math.max(1, item.quantity + increment) }
-          : item
-      );
-      setCart(updatedCart);
-    };
-    
-    return (
-      <motion.div
-      initial={{ opacity: 0, y: 20 }} 
-      animate={{ opacity: 1, y: 0 }} 
-      exit={{ opacity: 0, y: 20 }} 
-      transition={{ duration: 0.5 }} 
+  // Save cart items to local storage whenever the cart changes
+  useEffect(() => {
+    localStorage.setItem("cartItems", JSON.stringify(cart));
+  }, [cart]);
+
+  const handleDragEnd = (result) => {
+    if (!result.destination) return;
+
+    const items = Array.from(cart);
+    const [reorderedItem] = items.splice(result.source.index, 1);
+    items.splice(result.destination.index, 0, reorderedItem);
+
+    setCart(items);
+  };
+
+  const removeFromCart = (id) => {
+    const updatedCart = cart.filter((item) => item.id !== id);
+    setCart(updatedCart);
+  };
+
+  const updateQuantity = (id, increment) => {
+    const updatedCart = cart.map((item) =>
+      item.id === id
+        ? { ...item, quantity: Math.max(1, item.quantity + increment) }
+        : item
+    );
+    setCart(updatedCart);
+  };
+
+  return (
+    <motion.div
+      initial={{ opacity: 0, y: 20 }}
+      animate={{ opacity: 1, y: 0 }}
+      exit={{ opacity: 0, y: 20 }}
+      transition={{ duration: 0.5 }}
     >
       <Container>
         <h2 className="mt-3 mb-3">Your Cart</h2>
@@ -64,7 +64,11 @@
                 className="list-group"
               >
                 {cart.map((item, index) => (
-                  <Draggable key={item.id} draggableId={item.id.toString()} index={index}>
+                  <Draggable
+                    key={item.id}
+                    draggableId={item.id.toString()}
+                    index={index}
+                  >
                     {(provided) => (
                       <div
                         className="list-group-item d-flex "
@@ -91,7 +95,9 @@
                         />
                         <div style={{ flex: 1, marginLeft: "15px" }}>
                           <h5 style={{ margin: 0 }}>{item.title}</h5>
-                          <p style={{ margin: "5px 0", color: "#555" }}>${item.price}</p>
+                          <p style={{ margin: "5px 0", color: "#555" }}>
+                            ${item.price}
+                          </p>
                         </div>
                         <div className="d-flex ">
                           <Button
@@ -136,9 +142,8 @@
           </Droppable>
         </DragDropContext>
       </Container>
-          </motion.div>
-      
-    );
-  };
+    </motion.div>
+  );
+};
 
-  export default MyCart;
+export default MyCart;

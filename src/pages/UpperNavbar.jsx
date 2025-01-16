@@ -1,5 +1,13 @@
 import React, { useState, useEffect } from "react";
-import { Modal, Button, Form, Navbar, Nav, NavDropdown, Container } from "react-bootstrap";
+import {
+  Modal,
+  Button,
+  Form,
+  Navbar,
+  Nav,
+  NavDropdown,
+  Container,
+} from "react-bootstrap";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { useNavigate } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -87,7 +95,7 @@ const UpperNavbar = ({ cart = [] }) => {
   };
 
   return (
-    <Navbar bg="light" expand="lg" style={{ height: "50px" }}>
+    <Navbar bg="light" expand="lg" style={{ height: "50px", width: "101.5%" }}>
       <Container fluid>
         <Navbar.Brand href="/" className="me-auto">
           <img
@@ -97,9 +105,12 @@ const UpperNavbar = ({ cart = [] }) => {
             style={{ maxWidth: "150px", height: "auto" }}
           />
         </Navbar.Brand>
-          <Navbar.Toggle aria-controls="basic-navbar-nav"  />
-        <Navbar.Collapse id="basic-navbar-nav" >
-          <Nav className="me-auto ms-auto" style={{ fontSize: "13px", fontWeight: "700" }}>
+        <Navbar.Toggle aria-controls="basic-navbar-nav" />
+        <Navbar.Collapse id="basic-navbar-nav">
+          <Nav
+            className="ms-auto"
+            style={{ fontSize: "13px", fontWeight: "700" }}
+          >
             {categories.map((category, index) => (
               <Nav.Link
                 key={index}
@@ -112,12 +123,21 @@ const UpperNavbar = ({ cart = [] }) => {
 
           <Nav className="ms-auto">
             {loggedInUser ? (
-              <NavDropdown title={loggedInUser} id="basic-nav-dropdown" align="end">
+              <NavDropdown
+                title={loggedInUser}
+                id="basic-nav-dropdown"
+                align="end"
+              >
                 <NavDropdown.Item href="/home">Home</NavDropdown.Item>
                 <NavDropdown.Item href="#Settings">Settings</NavDropdown.Item>
-                <NavDropdown.Item href="#Contact Us">Contact Us</NavDropdown.Item>
+                <NavDropdown.Item href="#Contact Us">
+                  Contact Us
+                </NavDropdown.Item>
                 <NavDropdown.Divider />
-                <NavDropdown.Item onClick={handleLogout} style={{ color: "red" }}>
+                <NavDropdown.Item
+                  onClick={handleLogout}
+                  style={{ color: "red" }}
+                >
                   Log Out
                 </NavDropdown.Item>
               </NavDropdown>
@@ -132,27 +152,27 @@ const UpperNavbar = ({ cart = [] }) => {
               </Nav.Link>
             )}
 
-<Nav.Link
-  onClick={() => navigate("/mycart", { state: { cart } })}
-  style={{ position: "relative" }}
->
-  <FontAwesomeIcon icon={faShoppingBag} size="lg" />
-  <span
-    style={{
-      position: "absolute",
-      top: "16px",
-      right: "-7px",
-      backgroundColor: "orange",
-      color: "white",
-      borderRadius: "50%",
-      padding: "2px 6px",
-      fontSize: "12px",
-    }}
-  >
-    {cart.length}
-  </span>
-</Nav.Link>
-
+            <Nav.Link
+            className="me-4"
+              onClick={() => navigate("/mycart", { state: { cart } })}
+              style={{ position: "relative" }} 
+            >
+              <FontAwesomeIcon icon={faShoppingBag} size="lg" />
+              <span
+                style={{
+                  position: "absolute",
+                  top: "16px",
+                  right: "-7px",
+                  backgroundColor: "orange",
+                  color: "white",
+                  borderRadius: "50%",
+                  padding: "2px 6px",
+                  fontSize: "12px",
+                }}
+              >
+                {cart.length}
+              </span>
+            </Nav.Link>
           </Nav>
         </Navbar.Collapse>
       </Container>
@@ -217,4 +237,3 @@ const UpperNavbar = ({ cart = [] }) => {
 };
 
 export default UpperNavbar;
-  

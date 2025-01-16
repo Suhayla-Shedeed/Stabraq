@@ -4,7 +4,7 @@ import axios from 'axios';
 
 const Item = ({ image, title, color, price,category  ,  description, onClick }) => {
   return (
-    <Card className="item-card" style={{  margin: "1rem auto" }}>
+    <Card className="item-card" style={{  margin: "1rem auto" }} >
       <div className="image-container" onClick={onClick} style={{ cursor: 'pointer' }}>
         <Card.Img variant="top" src={image} alt={title} className="item-image mt-4" />
       </div>

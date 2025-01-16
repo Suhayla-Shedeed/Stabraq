@@ -13,10 +13,11 @@ function HomePage() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
+  
   useEffect(() => {
     const fetchProducts = async () => {
       try {
-        const response = await axios.get('https://fakestoreapi.com/products', { timeout: 5000 }); // Set a timeout of 5 seconds
+        const response = await axios.get('https://fakestoreapi.com/products', { timeout: 5000 }); // timeout 5 seconds
         setProducts(response.data);
         setLoading(false);
       } catch (err) {
@@ -30,7 +31,7 @@ function HomePage() {
 
   const navigate = useNavigate();
 
-  // Display a spinner while loading
+  //  spinner while loading
   if (loading) {
     return (
       <div className="d-flex justify-content-center align-items-center" style={{ height: '100vh' }}>
@@ -71,6 +72,7 @@ function HomePage() {
                 price={`$${product.price}`}
                 description={product.description}
                 quantity={1}
+                
                 onClick={() => navigate('/itemdetails', { state: { product } })} // Pass product data
               />
             </Col>

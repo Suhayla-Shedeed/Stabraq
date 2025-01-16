@@ -2,7 +2,8 @@ import React, { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import axios from "axios";
 import { motion } from "framer-motion"; // Import Framer Motion
-import UpperNavbar from "./UpperNavbar";
+import {RemoveScrollBar} from 'react-remove-scroll-bar';
+
 
 const CategoryPage = () => {
   const { category } = useParams(); // Extract the category from the URL
@@ -39,21 +40,15 @@ const CategoryPage = () => {
   }
 
   return (
-    <motion.div
+    <><RemoveScrollBar /><motion.div
       initial={{ opacity: 0, y: 20 }} // Start position
       animate={{ opacity: 1, y: 0 }} // End position
       exit={{ opacity: 0, y: 20 }} // Exit animation
       transition={{ duration: 0.5 }} // Animation duration
     >
       <h2
-        className="mt-3 mb-3"
-        style={{
-          fontFamily: "'Varela Round', sans-serif",
-          fontWeight: "bold",
-          fontSize: "2rem",
-          color: "darkblack",
-          textShadow: "1px 1px 3px lightgray",
-        }}
+        className="mt-3 mb-3 text-start ms-3"
+        style={{ fontSize: "24px" }}
       >
         {category.toUpperCase()}
       </h2>
@@ -90,8 +85,7 @@ const CategoryPage = () => {
             <img
               src={product.image}
               alt={product.title}
-              style={{ width: "100%", height: "150px", objectFit: "contain" }}
-            />
+              style={{ width: "100%", height: "150px", objectFit: "contain" }} />
             <h5 style={{ fontSize: "16px", margin: "10px 0" }}>
               {product.title}
             </h5>
@@ -101,7 +95,7 @@ const CategoryPage = () => {
           </motion.div>
         ))}
       </motion.div>
-    </motion.div>
+    </motion.div></>
   );
 };
 

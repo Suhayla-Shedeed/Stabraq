@@ -4,6 +4,8 @@ import { useLocation } from "react-router-dom";
 import { Row, Col, Button, Container, Alert } from "react-bootstrap";
 import UpperNavbar from "./UpperNavbar";
 import { motion } from "framer-motion"; // Import Framer Motion
+import {RemoveScrollBar} from 'react-remove-scroll-bar';
+
 
 const ItemDetails = ({ addToCart }) => {
   const location = useLocation();
@@ -39,7 +41,7 @@ const ItemDetails = ({ addToCart }) => {
       addToCart({ ...product, size: selectedSize });
     }
 
-    alert("Item added to cart successfully!");
+    // alert("Item added to cart successfully!");
   };
 
   if (!product) {
@@ -57,12 +59,14 @@ const ItemDetails = ({ addToCart }) => {
   }
 
   return (
-<motion.div
+    <><RemoveScrollBar /><motion.div
       initial={{ opacity: 0, y: 20 }} // Start position
       animate={{ opacity: 1, y: 0 }} // End position
       exit={{ opacity: 0, y: 20 }} // Exit animation
       transition={{ duration: 0.5 }} // Animation duration
-    >      <Container className="mt-5">
+    >
+      {" "}
+      <Container className="mt-5">
         <Row className="d-flex mt-3 mx-auto">
           {/* Image Section */}
           <Col xs={12} sm={6} md={6}>
@@ -70,16 +74,15 @@ const ItemDetails = ({ addToCart }) => {
               src={product.image}
               alt={product.title}
               style={{
-                width: "100%",
+                width: "85%",
                 height: "auto",
                 borderRadius: "8px",
                 objectFit: "cover",
-              }}
-            />
+              }} />
           </Col>
 
           {/* Details Section */}
-          <Col xs={12} sm={6} md={6}>
+          <Col xs={12} sm={6} md={6} className="mt-5">
             <h2>{product.title}</h2>
             <h3 style={{ color: "#E63946" }}>${product.price}</h3>
             <p style={{ marginTop: "10px", fontSize: "1rem", color: "#555" }}>
@@ -114,15 +117,18 @@ const ItemDetails = ({ addToCart }) => {
 
             {/* Add to Cart Button */}
             <div style={{ marginTop: "20px" }}>
-              <Button variant="dark" style={{ width: "100%" }} onClick={handleAddToCart}>
+              <Button
+                variant="dark"
+                style={{ width: "100%" }}
+                onClick={handleAddToCart}
+              >
                 Add To Cart
               </Button>
             </div>
           </Col>
         </Row>
       </Container>
-      </motion.div>
-
+    </motion.div></>
   );
 };
 
