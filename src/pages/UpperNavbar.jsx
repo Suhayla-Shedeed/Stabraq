@@ -14,6 +14,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUser, faShoppingBag } from "@fortawesome/free-solid-svg-icons";
 import axios from "axios";
 
+
 const UpperNavbar = ({ cart = [] }) => {
   const [show, setShow] = useState(false);
   const [loggedInUser, setLoggedInUser] = useState(
@@ -95,7 +96,7 @@ const UpperNavbar = ({ cart = [] }) => {
   };
 
   return (
-    <Navbar bg="light" expand="lg" style={{ height: "50px", width: "101.5%" }}>
+    <Navbar bg="light" expand="lg" style={{ height: "50px" }}>
       <Container fluid>
         <Navbar.Brand href="/" className="me-auto">
           <img

@@ -2,7 +2,6 @@ import React, { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import axios from "axios";
 import { motion } from "framer-motion"; // Import Framer Motion
-import {RemoveScrollBar} from 'react-remove-scroll-bar';
 
 
 const CategoryPage = () => {
@@ -40,7 +39,7 @@ const CategoryPage = () => {
   }
 
   return (
-    <><RemoveScrollBar /><motion.div
+    <><motion.div
       initial={{ opacity: 0, y: 20 }} // Start position
       animate={{ opacity: 1, y: 0 }} // End position
       exit={{ opacity: 0, y: 20 }} // Exit animation
