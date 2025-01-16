@@ -4,9 +4,9 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 
 const ModernCarousel = () => {
     return (
-        <Carousel>
+        <Carousel style={{width:"101.5%"}}>
             {/* Slide 1 */}
-            <Carousel.Item >
+            <Carousel.Item style={{width:"100%"}}>
                 <div style={{ alignItems: 'center', justifyContent: 'center', height: '656px', backgroundColor: '#f8f8f8' }}>
                     <img
                         src="src/images/1.png"
