@@ -1,9 +1,11 @@
-import React from "react";
-import { Container, Button, Image, Row, Col } from "react-bootstrap";
+import React, { useContext } from "react";
+import { Container, Button, Image } from "react-bootstrap";
 import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
+import { CartContext } from "../contexts/CartContext"; // Import the CartContext
 
+const MyCart = () => {
+  const { cart, setCart } = useContext(CartContext); // Get cart and setCart from context
 
-const MyCart = ({ cart = [], setCart }) => {
   const handleDragEnd = (result) => {
     if (!result.destination) return;
     const items = Array.from(cart);

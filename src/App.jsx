@@ -1,4 +1,4 @@
-import React, { useState , useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import "./App.css";
@@ -11,6 +11,7 @@ import HomePage from "./pages/HomePage";
 import ItemDetails from "./pages/ItemDetails";
 import CategoryPage from "./pages/CategoryPage";
 import MyCart from "./pages/MyCart";
+import { CartProvider } from "./contexts/CartContext"; // Import CartProvider from CartContext
 
 function App() {
   const [cart, setCart] = useState([]);
@@ -42,26 +43,22 @@ function App() {
   };
 
   return (
-    <Router>
-      <UpperNavbar cart={cart} />
+    <CartProvider value={{ cart, addToCart }}> {/* Wrap the app in CartProvider */}
+      <Router>
+        <UpperNavbar cart={cart} />
 
-      <Routes>
-        <Route path="/" element={<LandingPage />} />
-        <Route path="/moderncarousel" element={<ModernCarousel />} />
-        <Route path="/registeration" element={<Registeration />} />
-        <Route path="/item" element={<Item />} />
-        <Route path="/home" element={<HomePage />} />
-        <Route path="/category/:category" element={<CategoryPage />} />
-        <Route
-          path="/itemdetails"
-          element={<ItemDetails addToCart={addToCart} />}
-        />
-        <Route
-          path="/mycart"
-          element={<MyCart cart={cart} setCart={setCart} />}
-        />
-      </Routes>
-    </Router>
+        <Routes>
+          <Route path="/" element={<LandingPage />} />
+          <Route path="/moderncarousel" element={<ModernCarousel />} />
+          <Route path="/registeration" element={<Registeration />} />
+          <Route path="/item" element={<Item />} />
+          <Route path="/home" element={<HomePage />} />
+          <Route path="/category/:category" element={<CategoryPage />} />
+          <Route path="/itemdetails" element={<ItemDetails />} />
+          <Route path="/mycart" element={<MyCart cart={cart} setCart={setCart} />} />
+        </Routes>
+      </Router>
+    </CartProvider>
   );
 }
 
