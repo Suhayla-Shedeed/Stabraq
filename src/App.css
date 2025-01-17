@@ -55,3 +55,16 @@
 .item-card:hover .item-image {
   transform: scale(0.9); 
 }
+
+/*                             Accordion                                   */
+
+/* Remove blue hover/focus effect from the accordion button */
+.accordion-button:focus {
+  box-shadow: none;
+  outline: none;
+}
+
+.accordion-button:active {
+  background-color: #f8f9fa; /* Optional: Change background color when active */
+}
+
