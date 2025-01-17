@@ -87,7 +87,7 @@ const UpperNavbar = () => {
     setLoggedInUser(emailPrefix);
     localStorage.setItem("loggedInUser", emailPrefix); // Save to local storage
     // alert("Login Successful!");
-    setShow(false); 
+    setShow(false);
     navigate("/home");
   };
 
@@ -98,7 +98,7 @@ const UpperNavbar = () => {
   };
 
   return (
-    <Navbar bg="light" expand="lg" style={{ height: "50px" }}>
+    <Navbar bg="light" expand="lg" style={{ height: "50px" }} fixed="top">
       <Container fluid>
         <Navbar.Brand href="/" className="me-auto">
           <img
@@ -108,6 +108,7 @@ const UpperNavbar = () => {
             style={{ maxWidth: "150px", height: "auto" }}
           />
         </Navbar.Brand>
+        
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav
@@ -124,39 +125,68 @@ const UpperNavbar = () => {
             ))}
           </Nav>
 
-
           <Nav className="ms-auto">
             {loggedInUser ? (
-              
               <>
-              <Nav.Link href="/home">Home</Nav.Link> 
-              <span className="mx-2 mt-2">|</span>
-              <NavDropdown
-                title={loggedInUser}
-                id="basic-nav-dropdown"
-                align="end"
-              >
-                <NavDropdown.Item href="#Settings">Settings</NavDropdown.Item>
-                <NavDropdown.Item href="#Contact Us">
-                  Contact Us
-                </NavDropdown.Item>
-                <NavDropdown.Divider />
-                <NavDropdown.Item
-                  onClick={handleLogout}
-                  style={{ color: "red" }}
-                >
-                  Log Out
-                </NavDropdown.Item>
-              </NavDropdown></>
+                <Nav.Link href="/home">Home</Nav.Link>
+                <span className="mx-2 mt-2">|</span>
 
+                <Nav.Link href="/home">{loggedInUser}</Nav.Link>
+
+                <span className="mx-2 mt-2">|</span>
+                <NavDropdown
+                  title={<FontAwesomeIcon icon={faUser} />}
+                  id="basic-nav-dropdown"
+                  align="end"
+                >
+                  <NavDropdown.Item href="#Settings">Settings</NavDropdown.Item>
+                  <NavDropdown.Item href="#Contact Us">
+                    Contact Us
+                  </NavDropdown.Item>
+                  <NavDropdown.Divider />
+                  <NavDropdown.Item
+                    onClick={handleLogout}
+                    style={{ color: "red" }}
+                  >
+                    Log Out
+                  </NavDropdown.Item>
+                </NavDropdown>
+              </>
             ) : (
-              <><Nav.Link href="/home">Home</Nav.Link><Nav.Link>
+              <>
+                <Nav.Link href="/home">Home</Nav.Link>
+                <span className="mx-2 mt-2">|</span>
+
+                {/* <Nav.Link>
                   <FontAwesomeIcon
                     icon={faUser}
                     size="lg"
                     variant="primary"
-                    onClick={handleShow} />
-                </Nav.Link></>
+                    onClick={handleShow}
+                  />
+                </Nav.Link> */}
+                <NavDropdown
+                  title={<FontAwesomeIcon icon={faUser} />}
+                  id="basic-nav-dropdown"
+                  align="end"
+                >
+                  <NavDropdown.Item href="#Settings">Settings</NavDropdown.Item>
+                  <NavDropdown.Item href="#About">
+                  About
+                  </NavDropdown.Item>
+                  <NavDropdown.Item href="#Contact Us">
+                    Contact Us
+                  </NavDropdown.Item>
+                  
+                  <NavDropdown.Divider />
+                  <NavDropdown.Item
+                    onClick={handleShow}
+                    style={{ color: "red" }}
+                  >
+                    Login
+                  </NavDropdown.Item>
+                </NavDropdown>
+              </>
             )}
 
             <Nav.Link
@@ -183,6 +213,7 @@ const UpperNavbar = () => {
           </Nav>
         </Navbar.Collapse>
       </Container>
+
 
       {/* Login Modal */}
       <Modal show={show} onHide={handleClose} centered>

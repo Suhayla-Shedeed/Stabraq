@@ -12,6 +12,7 @@ import ItemDetails from "./pages/ItemDetails";
 import CategoryPage from "./pages/CategoryPage";
 import MyCart from "./pages/MyCart";
 import { CartProvider } from "./contexts/CartContext"; // Import CartProvider from CartContext
+import Accordion from "./pages/Accordion";
 
 function App() {
   const [cart, setCart] = useState([]);
@@ -53,6 +54,7 @@ function App() {
           <Route path="/registeration" element={<Registeration />} />
           <Route path="/item" element={<Item />} />
           <Route path="/home" element={<HomePage />} />
+          <Route path="/accordion" element={<Accordion />} />
           <Route path="/category/:category" element={<CategoryPage />} />
           <Route path="/itemdetails" element={<ItemDetails />} />
           <Route path="/mycart" element={<MyCart cart={cart} setCart={setCart} />} />

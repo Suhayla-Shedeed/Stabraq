@@ -7,21 +7,14 @@ import { CartContext } from "../contexts/CartContext";
 const ItemDetails = () => {
   const location = useLocation();
   const { product } = location.state || {};
-  const [selectedSize, setSelectedSize] = useState(null);
   const [error, setError] = useState(null);
 
   const { addToCart } = useContext(CartContext);
 
   const handleAddToCart = () => {
-    if (!selectedSize) {
-      setError("Please select a size before adding to the cart.");
-      return;
-    }
-
     if (addToCart) {
-      addToCart({ ...product, size: selectedSize });
+      addToCart({ ...product });
     }
-
     setError(null);
   };
 
@@ -75,38 +68,6 @@ const ItemDetails = () => {
             <p style={{ marginTop: "10px", fontSize: "1rem", color: "#555" }}>
               {product.description}
             </p>
-
-            <div
-              style={{
-                gap: "10px",
-                marginTop: "10px",
-              }}
-            >
-              <strong>Size:</strong>
-
-              {["S", "M", "L", "XL"].map((size, index) => (
-                <Button
-                  key={index}
-                  className="m-2"
-                  variant={
-                    selectedSize === size ? "primary" : "outline-secondary"
-                    
-                  }
-                  onClick={() => {
-                    setSelectedSize(size);
-                    setError(null);
-                  }}
-                  style={{
-                    borderRadius: "50px",
-                    padding: "5px 15px",
-                    fontSize: "0.9rem",
-                  }}
-                  aria-label={`Select size ${size}`}
-                >
-                  {size}
-                </Button>
-              ))}
-            </div>
 
             {error && (
               <Alert variant="danger" className="mt-3">
