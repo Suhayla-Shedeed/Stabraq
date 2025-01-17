@@ -1,14 +1,16 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { useLocation } from "react-router-dom";
 import { Row, Col, Button, Container, Alert } from "react-bootstrap";
 import { motion } from "framer-motion";
+import { CartContext } from "../contexts/CartContext"; // Import CartContext
 
-
-const ItemDetails = ({ addToCart }) => {
+const ItemDetails = () => {
   const location = useLocation();
   const { product } = location.state || {}; // Ensure product is passed
   const [selectedSize, setSelectedSize] = useState(null); // Track selected size
   const [error, setError] = useState(null); // Track error for size selection
+
+  const { addToCart } = useContext(CartContext); // Access addToCart from CartContext
 
   const handleAddToCart = () => {
     if (!selectedSize) {

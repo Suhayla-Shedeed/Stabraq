@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import {
   Modal,
   Button,
@@ -13,9 +13,9 @@ import { useNavigate } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUser, faShoppingBag } from "@fortawesome/free-solid-svg-icons";
 import axios from "axios";
+import { CartContext } from "../contexts/CartContext"; // Import CartContext
 
-
-const UpperNavbar = ({ cart = [] }) => {
+const UpperNavbar = () => {
   const [show, setShow] = useState(false);
   const [loggedInUser, setLoggedInUser] = useState(
     () => localStorage.getItem("loggedInUser") || ""
@@ -27,6 +27,8 @@ const UpperNavbar = ({ cart = [] }) => {
   });
   const [errors, setErrors] = useState({});
   const [loading, setLoading] = useState(false);
+
+  const { cart } = useContext(CartContext); // Use CartContext to access cart
 
   const handleShow = () => setShow(true);
   const handleClose = () => setShow(false);
@@ -154,9 +156,9 @@ const UpperNavbar = ({ cart = [] }) => {
             )}
 
             <Nav.Link
-            className="me-4"
-              onClick={() => navigate("/mycart", { state: { cart } })}
-              style={{ position: "relative" }} 
+              className="me-4"
+              onClick={() => navigate("/mycart")}
+              style={{ position: "relative" }}
             >
               <FontAwesomeIcon icon={faShoppingBag} size="lg" />
               <span

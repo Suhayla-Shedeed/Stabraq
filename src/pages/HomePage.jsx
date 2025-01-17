@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Row, Col, Container, Spinner, Alert } from 'react-bootstrap';
 import Item from './Item';
@@ -6,14 +6,14 @@ import UpperNavbar from "./UpperNavbar";
 import ModernCarousel from './ModernCarousel';
 import axios from 'axios';
 import { motion } from "framer-motion"; // Import Framer Motion
-
+import { CartContext } from '../contexts/CartContext'; // Import CartContext
 
 function HomePage() {
+  const { cart, setCart } = useContext(CartContext); // Access cart and setCart from context
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
-  
   useEffect(() => {
     const fetchProducts = async () => {
       try {
@@ -31,7 +31,7 @@ function HomePage() {
 
   const navigate = useNavigate();
 
-  //  spinner while loading
+  // spinner while loading
   if (loading) {
     return (
       <div className="d-flex justify-content-center align-items-center" style={{ height: '100vh' }}>
@@ -54,13 +54,28 @@ function HomePage() {
     );
   }
 
+  const addToCart = (product) => {
+    setCart((prevCart) => {
+      const existingItem = prevCart.find((item) => item.id === product.id);
+      if (existingItem) {
+        return prevCart.map((item) =>
+          item.id === product.id
+            ? { ...item, quantity: item.quantity + 1 }
+            : item
+        );
+      }
+      return [...prevCart, { ...product, quantity: 1 }];
+    });
+  };
+
   return (
-<motion.div
+    <motion.div
       initial={{ opacity: 0, y: 20 }} // Start position
       animate={{ opacity: 1, y: 0 }} // End position
       exit={{ opacity: 0, y: 20 }} // Exit animation
       transition={{ duration: 0.5 }} // Animation duration
-    >      <Container fluid>
+    >
+      <Container fluid>
         <h2 className="mt-3">Shop New Releases</h2>
         <Row>
           {products.map((product) => (
@@ -68,18 +83,19 @@ function HomePage() {
               <Item
                 image={product.image}
                 title={product.title}
-                category={product.category} 
+                category={product.category}
                 price={`$${product.price}`}
                 description={product.description}
                 quantity={1}
-                
                 onClick={() => navigate('/itemdetails', { state: { product } })} // Pass product data
+                // Add to Cart button logic
+                addToCart={() => addToCart(product)} // Add to Cart functionality
               />
             </Col>
           ))}
         </Row>
       </Container>
-      </motion.div>
+    </motion.div>
   );
 }
 
