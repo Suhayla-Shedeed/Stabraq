@@ -1,16 +1,16 @@
-import React, { useState, useEffect, useContext } from "react";
+import React, { useState, useContext } from "react";
 import { useLocation } from "react-router-dom";
 import { Row, Col, Button, Container, Alert } from "react-bootstrap";
 import { motion } from "framer-motion";
-import { CartContext } from "../contexts/CartContext"; // Import CartContext
+import { CartContext } from "../contexts/CartContext";
 
 const ItemDetails = () => {
   const location = useLocation();
-  const { product } = location.state || {}; // Ensure product is passed
-  const [selectedSize, setSelectedSize] = useState(null); // Track selected size
-  const [error, setError] = useState(null); // Track error for size selection
+  const { product } = location.state || {};
+  const [selectedSize, setSelectedSize] = useState(null);
+  const [error, setError] = useState(null);
 
-  const { addToCart } = useContext(CartContext); // Access addToCart from CartContext
+  const { addToCart } = useContext(CartContext);
 
   const handleAddToCart = () => {
     if (!selectedSize) {
@@ -18,112 +18,115 @@ const ItemDetails = () => {
       return;
     }
 
-    // Add product to cart with selected size
     if (addToCart) {
       addToCart({ ...product, size: selectedSize });
     }
 
-    setError(null); // Clear error if successful
-    // alert("Item added to cart successfully!");
+    setError(null);
   };
 
   if (!product) {
     return (
-      <div>
-        <Container className="mt-5 d-flex justify-content-center">
-          <Alert variant="warning">
-            <h4>No Item Details Available</h4>
-            <p>Please go back and select a product to view its details.</p>
-          </Alert>
-        </Container>
-      </div>
+      <Container className="d-flex align-items-center justify-content-center vh-100">
+        <Alert variant="warning" className="text-center">
+          <h4>No Item Details Available</h4>
+          <p>Please go back and select a product to view its details.</p>
+        </Alert>
+      </Container>
     );
   }
 
   return (
-    <>
-      <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        exit={{ opacity: 0, y: 20 }}
-        transition={{ duration: 0.5 }}
+    <motion.div
+      initial={{ opacity: 0, y: 20 }}
+      animate={{ opacity: 1, y: 0 }}
+      exit={{ opacity: 0, y: 20 }}
+      transition={{ duration: 0.5 }}
+    >
+      <Container
+        fluid
+        className="vh-100 d-flex align-items-center justify-content-center"
       >
-        <Container className="mt-5">
-          <Row className="d-flex mt-3 mx-auto">
-            {/* Image Section */}
-            <Col xs={12} sm={6} md={6} className="text-center">
-              <img
-                src={product.image}
-                alt={product.title}
-                style={{
-                  width: "85%",
-                  height: "auto",
-                  borderRadius: "8px",
-                  objectFit: "cover",
-                }}
-              />
-            </Col>
+        <Row className="w-100 " style={{ maxWidth: "1200px" }}>
+          <Col
+            xs={12}
+            sm={6}
+            className="d-flex justify-content-center align-items-center"
+          >
+            <img
+              src={product.image}
+              alt={product.title}
+              style={{
+                width: "100%",
+                maxHeight: "80vh",
+                borderRadius: "8px",
+                objectFit: "contain",
+              }}
+            />
+          </Col>
 
-            {/* Details Section */}
-            <Col xs={12} sm={6} md={6} className="mt-5">
-              <h2>{product.title}</h2>
-              <h3 style={{ color: "#E63946" }}>${product.price}</h3>
-              <p style={{ marginTop: "10px", fontSize: "1rem", color: "#555" }}>
-                {product.description}
-              </p>
+          <Col
+            xs={12}
+            sm={6}
+            className="d-flex flex-column justify-content-center"
+          >
+            <h2>{product.title}</h2>
+            <h3 style={{ color: "#E63946" }}>${product.price}</h3>
+            <p style={{ marginTop: "10px", fontSize: "1rem", color: "#555" }}>
+              {product.description}
+            </p>
 
-              {/* Size Options */}
+            <div
+              style={{
+                gap: "10px",
+                marginTop: "10px",
+              }}
+            >
               <strong>Size:</strong>
-              <div
-                style={{
-                  display: "flex",
-                  gap: "10px",
-                  marginTop: "10px",
-                  justifyContent: "center",
-                }}
-              >
-                {["S", "M", "L", "XL"].map((size, index) => (
-                  <Button
-                    key={index}
-                    variant={selectedSize === size ? "primary" : "outline-secondary"}
-                    onClick={() => {
-                      setSelectedSize(size);
-                      setError(null); // Clear error on size selection
-                    }}
-                    style={{
-                      borderRadius: "50px",
-                      padding: "5px 15px",
-                      fontSize: "0.9rem",
-                    }}
-                    aria-label={`Select size ${size}`}
-                  >
-                    {size}
-                  </Button>
-                ))}
-              </div>
 
-              {/* Error Message */}
-              {error && (
-                <Alert variant="danger" className="mt-3">
-                  {error}
-                </Alert>
-              )}
-
-              {/* Add to Cart Button */}
-              <div style={{ marginTop: "20px" }}>
+              {["S", "M", "L", "XL"].map((size, index) => (
                 <Button
-                  variant="dark"
-                  style={{ width: "100%" }}
-                  onClick={handleAddToCart}
+                  key={index}
+                  className="m-2"
+                  variant={
+                    selectedSize === size ? "primary" : "outline-secondary"
+                    
+                  }
+                  onClick={() => {
+                    setSelectedSize(size);
+                    setError(null);
+                  }}
+                  style={{
+                    borderRadius: "50px",
+                    padding: "5px 15px",
+                    fontSize: "0.9rem",
+                  }}
+                  aria-label={`Select size ${size}`}
                 >
-                  Add To Cart
+                  {size}
                 </Button>
-              </div>
-            </Col>
-          </Row>
-        </Container>
-      </motion.div>
-    </>
+              ))}
+            </div>
+
+            {error && (
+              <Alert variant="danger" className="mt-3">
+                {error}
+              </Alert>
+            )}
+
+            <div style={{ marginTop: "20px" }}>
+              <Button
+                variant="dark"
+                style={{ width: "100%" }}
+                onClick={handleAddToCart}
+              >
+                Add To Cart
+              </Button>
+            </div>
+          </Col>
+        </Row>
+      </Container>
+    </motion.div>
   );
 };
 

@@ -86,8 +86,8 @@ const UpperNavbar = () => {
     const emailPrefix = formData.email.split("@")[0];
     setLoggedInUser(emailPrefix);
     localStorage.setItem("loggedInUser", emailPrefix); // Save to local storage
-    alert("Login Successful!");
-    setShow(false); // Close modal
+    // alert("Login Successful!");
+    setShow(false); 
     navigate("/home");
   };
 
@@ -124,14 +124,18 @@ const UpperNavbar = () => {
             ))}
           </Nav>
 
+
           <Nav className="ms-auto">
             {loggedInUser ? (
+              
+              <>
+              <Nav.Link href="/home">Home</Nav.Link> 
+              <span className="mx-2 mt-2">|</span>
               <NavDropdown
                 title={loggedInUser}
                 id="basic-nav-dropdown"
                 align="end"
               >
-                <NavDropdown.Item href="/home">Home</NavDropdown.Item>
                 <NavDropdown.Item href="#Settings">Settings</NavDropdown.Item>
                 <NavDropdown.Item href="#Contact Us">
                   Contact Us
@@ -143,16 +147,16 @@ const UpperNavbar = () => {
                 >
                   Log Out
                 </NavDropdown.Item>
-              </NavDropdown>
+              </NavDropdown></>
+
             ) : (
-              <Nav.Link>
-                <FontAwesomeIcon
-                  icon={faUser}
-                  size="lg"
-                  variant="primary"
-                  onClick={handleShow}
-                />
-              </Nav.Link>
+              <><Nav.Link href="/home">Home</Nav.Link><Nav.Link>
+                  <FontAwesomeIcon
+                    icon={faUser}
+                    size="lg"
+                    variant="primary"
+                    onClick={handleShow} />
+                </Nav.Link></>
             )}
 
             <Nav.Link
