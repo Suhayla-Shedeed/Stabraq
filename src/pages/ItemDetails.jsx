@@ -3,6 +3,7 @@ import { useLocation } from "react-router-dom";
 import { Row, Col, Button, Container, Alert } from "react-bootstrap";
 import { motion } from "framer-motion";
 
+
 const ItemDetails = ({ addToCart }) => {
   const location = useLocation();
   const { product } = location.state || {}; // Ensure product is passed
@@ -21,7 +22,7 @@ const ItemDetails = ({ addToCart }) => {
     }
 
     setError(null); // Clear error if successful
-    alert("Item added to cart successfully!");
+    // alert("Item added to cart successfully!");
   };
 
   if (!product) {

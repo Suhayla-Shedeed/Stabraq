@@ -1,51 +1,74 @@
 import React from "react";
-import { Container, Button } from "react-bootstrap";
+import { Container, Button, Image, Row, Col } from "react-bootstrap";
 import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
 
-const MyCart = ({ cart = [] , setCart }) => {
+
+const MyCart = ({ cart = [], setCart }) => {
   const handleDragEnd = (result) => {
     if (!result.destination) return;
-
     const items = Array.from(cart);
     const [reorderedItem] = items.splice(result.source.index, 1);
     items.splice(result.destination.index, 0, reorderedItem);
-
     setCart(items);
   };
 
-  const removeFromCart = (id) => {
-    setCart(cart.filter((item) => item.id !== id));
+  const removeFromCart = (id) => setCart(cart.filter((item) => item.id !== id));
+
+  const updateQuantity = (id, delta) => {
+    setCart(
+      cart.map((item) =>
+        item.id === id
+          ? { ...item, quantity: Math.max(1, item.quantity + delta) }
+          : item
+      )
+    );
   };
 
   return (
     <Container>
-      <h2 className="mt-3">Your Cart</h2>
+      <h5 className="mt-3">Your Cart</h5>
       <DragDropContext onDragEnd={handleDragEnd}>
         <Droppable droppableId="cart">
           {(provided) => (
-            <div
-              {...provided.droppableProps}
-              ref={provided.innerRef}
-              className="list-group"
-            >
+            <div {...provided.droppableProps} ref={provided.innerRef} className="list-group">
               {cart.map((item, index) => (
                 <Draggable key={item.id} draggableId={item.id.toString()} index={index}>
                   {(provided) => (
                     <div
-                      className="list-group-item d-flex justify-content-between align-items-center"
+                      className="list-group-item d-flex justify-content-between align-items-center mb-2"
                       ref={provided.innerRef}
                       {...provided.draggableProps}
                       {...provided.dragHandleProps}
                     >
-                      <div>
-                        <h5>{item.title}</h5>
-                        <p>${item.price}</p>
+                      <Image src={item.image} alt={item.title} rounded fluid style={{ width: "40px" }} />
+                      <div className="ms-2 me-auto" style={{ flex: 1 }}>
+                        <h6 className="mb-0">{item.title}</h6>
+                        <small>${item.price}</small>
+                      </div>
+                      <div className="d-flex align-items-center">
+                        <Button
+                          variant="outline-secondary"
+                          size="sm"
+                          onClick={() => updateQuantity(item.id, -1)}
+                        >
+                          -
+                        </Button>
+                        <span className="mx-2 small">{item.quantity}</span>
+                        <Button
+                          variant="outline-secondary"
+                          size="sm"
+                          onClick={() => updateQuantity(item.id, 1)}
+                        >
+                          +
+                        </Button>
                       </div>
                       <Button
                         variant="danger"
+                        size="sm"
                         onClick={() => removeFromCart(item.id)}
+                        className="ms-2"
                       >
-                        Remove
+                        X
                       </Button>
                     </div>
                   )}
