@@ -7,23 +7,17 @@ export function CartProvider({ children }) {
 
   // Load cart from localStorage on mount
   useEffect(() => {
-    const storedCart = JSON.parse(localStorage.getItem("cartItems"));
+    const storedCart = JSON.parse(localStorage.getItem("cart"));
     if (storedCart) {
       setCart(storedCart);
     }
   }, []);
-  //Load the cart from localStorage on initial load
-  useEffect(() => {
-    const savedCart = JSON.parse(localStorage.getItem('cart'));
-    if (savedCart) {
-      setCart(savedCart);
-    }
-  }, []);
-
 
   // Save cart to localStorage whenever it changes
   useEffect(() => {
-    localStorage.setItem("cartItems", JSON.stringify(cart));
+    if (cart.length > 0) {
+      localStorage.setItem("cart", JSON.stringify(cart));
+    }
   }, [cart]);
 
   const addToCart = (product) => {
@@ -39,12 +33,6 @@ export function CartProvider({ children }) {
       return [...prevCart, { ...product, quantity: 1 }];
     });
   };
-  // Save the cart to localStorage whenever it changes
-  useEffect(() => {
-    if (cart.length > 0) {
-      localStorage.setItem('cart', JSON.stringify(cart));
-    }
-  }, [cart]);
 
   const removeFromCart = (id) => {
     setCart((prevCart) => prevCart.filter((item) => item.id !== id));
@@ -55,8 +43,9 @@ export function CartProvider({ children }) {
   };
 
   return (
-    <CartContext.Provider value={{ cart, addToCart, removeFromCart , setCart, clearCart }}>
+    <CartContext.Provider value={{ cart, addToCart, removeFromCart, setCart, clearCart }}>
       {children}
     </CartContext.Provider>
   );
 }
+  
