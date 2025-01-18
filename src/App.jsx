@@ -11,9 +11,10 @@ import HomePage from "./pages/HomePage";
 import ItemDetails from "./pages/ItemDetails";
 import CategoryPage from "./pages/CategoryPage";
 import MyCart from "./pages/MyCart";
-import { CartProvider } from "./contexts/CartContext"; // Import CartProvider from CartContext
+import { CartProvider } from "./contexts/CartContext";
 import Accordion from "./pages/Accordion";
-
+import MyFooter from "./pages/MyFooter";
+import ContactUs from"./pages/ContactUs";
 
 function App() {
   const [cart, setCart] = useState([]);
@@ -45,21 +46,27 @@ function App() {
   };
 
   return (
-    <CartProvider value={{ cart, addToCart }}> {/* Wrap the app in CartProvider */}
+    <CartProvider value={{ cart, addToCart }}>
       <Router>
         <UpperNavbar cart={cart} />
-
-        <Routes>
-          <Route path="/" element={<LandingPage />} />
-          <Route path="/moderncarousel" element={<ModernCarousel />} />
-          <Route path="/registeration" element={<Registeration />} />
-          <Route path="/item" element={<Item />} />
-          <Route path="/home" element={<HomePage />} />
-          <Route path="/accordion" element={<Accordion />} />
-          <Route path="/category/:category" element={<CategoryPage />} />
-          <Route path="/itemdetails" element={<ItemDetails />} />
-          <Route path="/mycart" element={<MyCart cart={cart} setCart={setCart} />} />
-        </Routes>
+        
+        <div style={{ minHeight: "calc(100vh - 100px)" }}> {/* Adjust height to accommodate the footer */}
+          <Routes>
+            <Route path="/" element={<LandingPage />} />
+            <Route path="/moderncarousel" element={<ModernCarousel />} />
+            <Route path="/registeration" element={<Registeration />} />
+            <Route path="/item" element={<Item />} />
+            <Route path="/home" element={<HomePage />} />
+            <Route path="/accordion" element={<Accordion />} />
+            <Route path="/footer" element={<MyFooter />} />
+            <Route path="/contact" element={<ContactUs />} />
+            <Route path="/category/:category" element={<CategoryPage />} />
+            <Route path="/itemdetails" element={<ItemDetails />} />
+            <Route path="/mycart" element={<MyCart cart={cart} setCart={setCart} />} />
+          </Routes>
+        </div>
+        
+        <MyFooter /> 
       </Router>
     </CartProvider>
   );

@@ -28,7 +28,7 @@ const UpperNavbar = () => {
   const [errors, setErrors] = useState({});
   const [loading, setLoading] = useState(false);
 
-  const { cart } = useContext(CartContext); // Use CartContext to access cart
+  const { cart } = useContext(CartContext); 
 
   const handleShow = () => setShow(true);
   const handleClose = () => setShow(false);
