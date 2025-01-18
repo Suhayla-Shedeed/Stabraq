@@ -7,21 +7,33 @@
   text-align: center;
 }
 
-/* 
- @keyframes logo-spin {
-  from {
-    transform: rotate(0deg);
+@media (max-width: 767px) {
+  .navbar {
+    padding: 10px;
   }
-  to {
-    transform: rotate(360deg);
+
+  .navbar-brand img {
+    max-width: 120px;
+  }
+
+  .nav-link {
+    font-size: 12px;
+  }
+
+  .navbar-collapse {
+    text-align: center;
   }
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  a:nth-of-type(2) .logo {
-    animation: logo-spin infinite 20s linear;
-  }
-}  */
+
+footer {
+  background-color: #000;
+}
+
+footer a:hover {
+  text-decoration: underline;
+}
+
 
 
 .read-the-docs {
@@ -67,3 +79,4 @@
 .accordion-button:active {
   background-color: #f8f9fa; /* Optional: Change background color when active */
 }
+

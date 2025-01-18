@@ -44,28 +44,19 @@ const ItemDetails = () => {
           <Col
             xs={12}
             sm={6}
-            className="d-flex justify-content-center align-items-center"
-          >
-            <img
-              src={product.image}
-              alt={product.title}
-              style={{
-                width: "100%",
-                maxHeight: "80vh",
-                borderRadius: "8px",
-                objectFit: "contain",
-              }}
-            />
-          </Col>
-
-          <Col
-            xs={12}
-            sm={6}
             className="d-flex flex-column justify-content-center"
           >
-            <h2>{product.title}</h2>
-            <h3 style={{ color: "#E63946" }}>${product.price}</h3>
-            <p style={{ marginTop: "10px", fontSize: "1rem", color: "#555" }}>
+            <h2 className="text-start">{product.title}</h2>
+            <p className="text-capitalize text-start">
+              Category: <strong>{product.category}</strong>
+            </p>
+            <h3 className="text-start" style={{ color: "#E63946" }}>
+              Price: ${product.price}
+            </h3>
+            <p
+              style={{ marginTop: "10px", fontSize: "1rem", color: "#555" }}
+              className="text-start"
+            >
               {product.description}
             </p>
 
@@ -78,12 +69,28 @@ const ItemDetails = () => {
             <div style={{ marginTop: "20px" }}>
               <Button
                 variant="dark"
-                style={{ width: "100%" }}
+                style={{ width: "65%" }}
                 onClick={handleAddToCart}
               >
                 Add To Cart
               </Button>
             </div>
+          </Col>
+          <Col
+            xs={12}
+            sm={6}
+            className="d-flex justify-content-center align-items-center"
+          >
+            <img
+              src={product.image}
+              alt={product.title}
+              style={{
+                width: "85%",
+                maxHeight: "80vh",
+                borderRadius: "8px",
+                objectFit: "contain",
+              }}
+            />
           </Col>
         </Row>
       </Container>

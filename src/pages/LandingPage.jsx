@@ -2,12 +2,10 @@ import React from 'react';
 import { useNavigate } from "react-router-dom";
 import ModernCarousel from './ModernCarousel';
 import { motion } from "framer-motion"; 
+import MyFooter from './MyFooter';
 
-
-// import "../i18n";
 
 function HomePage() {
-  // const { t, i18n } = useTranslation();
 
   const navigate = useNavigate();
   return (
@@ -19,7 +17,9 @@ function HomePage() {
     >
       <div>
         <ModernCarousel />
+
       </div>
+
     </motion.div></>
 
   );

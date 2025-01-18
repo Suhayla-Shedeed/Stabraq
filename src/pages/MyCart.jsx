@@ -2,28 +2,21 @@ import React, { useState, useContext } from "react";
 import { Container, Button, Image } from "react-bootstrap";
 import { CartContext } from "../contexts/CartContext";
 import { FaTrash, FaMinus, FaPlus } from "react-icons/fa";
-import { motion } from "framer-motion"; // Import Framer Motion
-import { RiDragMove2Line } from 'react-icons/ri';
+import { motion } from "framer-motion";
+import { RiDragMove2Line } from "react-icons/ri";
+import { useNavigate } from "react-router-dom";
+import "bootstrap-icons/font/bootstrap-icons.css";
 
 const MyCart = () => {
   const { cart, setCart } = useContext(CartContext);
   const [draggingItem, setDraggingItem] = useState(null);
+  const navigate = useNavigate();
 
   const removeFromCart = (id) => setCart(cart.filter((item) => item.id !== id));
 
-  const updateQuantity = (id, delta) => {
-    setCart(
-      cart.map((item) =>
-        item.id === id
-          ? { ...item, quantity: Math.max(1, item.quantity + delta) }
-          : item
-      )
-    );
-  };
-
   const handleDragStart = (e, item) => {
     setDraggingItem(item);
-    e.dataTransfer.setData('text/plain', '');
+    e.dataTransfer.setData("text/plain", "");
   };
 
   const handleDragEnd = () => {
@@ -56,12 +49,14 @@ const MyCart = () => {
       transition={{ duration: 0.5 }} // Animation duration
     >
       <Container>
-        <h2 className="mt-3 mb-3">Cart</h2>
+        <h2 className="mt-3 mb-3 p-3 text-start">Cart Items</h2> 
         <div className="list-group">
           {cart.map((item) => (
             <div
               key={item.id}
-              className={`list-group-item d-flex justify-content-between align-items-center mb-2 ${item === draggingItem ? 'dragging' : ''}`}
+              className={`list-group-item d-flex justify-content-between border border-secondary rounded-3 align-items-center mb-2 ${
+                item === draggingItem ? "dragging" : ""
+              }`}
               draggable="true"
               onDragStart={(e) => handleDragStart(e, item)}
               onDragEnd={handleDragEnd}
@@ -73,7 +68,10 @@ const MyCart = () => {
                 alt={item.title}
                 rounded
                 fluid
-                style={{ width: "40px" }}
+                style={{ height: "70px", cursor: "pointer" }}
+                onClick={() =>
+                  navigate("/itemdetails", { state: { product: item } })
+                }
               />
               <div className="ms-2 me-auto" style={{ flex: 1 }}>
                 <h6 className="mb-0">{item.title}</h6>
@@ -82,32 +80,18 @@ const MyCart = () => {
                   <strong>Total: ${item.price * item.quantity}</strong>
                 </div>
               </div>
-              <div className="d-flex align-items-center">
-                <Button
-                  variant="outline-secondary"
-                  size="sm"
-                  onClick={() => updateQuantity(item.id, -1)}
-                >
-                  <FaMinus />
-                </Button>
-                <span className="mx-2 small">{item.quantity}</span>
-                <Button
-                  variant="outline-secondary"
-                  size="sm"
-                  onClick={() => updateQuantity(item.id, 1)}
-                >
-                  <FaPlus />
-                </Button>
-              </div>
 
-              <Button
-                variant="danger"
-                size="sm"
+              <button
+                className="border border-secondary rounded-3 m-2"
+                style={{
+                  fontSize: "12px",
+                  padding: "5px 10px",
+                  backgroundColor: "#950606",
+                }}
                 onClick={() => removeFromCart(item.id)}
-                className="ms-2"
               >
-                <FaTrash />
-              </Button>
+                <i className="bi bi-trash" style={{ fontSize: "18px" }}></i>{" "}
+              </button>
 
               <RiDragMove2Line />
             </div>

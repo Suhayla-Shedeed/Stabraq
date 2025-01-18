@@ -25,10 +25,10 @@ const CategoryPage = () => {
         setLoading(false);
       }
     };
-
+  // Refetch products when the category changes
     fetchProducts();
   }, [category]);
-  // Refetch products when the category changes
+
 
   // if (loading) {
   //   return <p>Loading products...</p>;
@@ -46,7 +46,7 @@ const CategoryPage = () => {
       transition={{ duration: 0.5 }} // Animation duration
     >
       <h2
-        className="mt-3 mb-3 text-start ms-3"
+        className="mt-3 mb-3 text-start ms-3 p-2"
         style={{ fontSize: "24px" }}
       >
         {category.toUpperCase()}

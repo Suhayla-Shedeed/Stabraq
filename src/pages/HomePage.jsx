@@ -86,11 +86,12 @@ function HomePage() {
     >
       <Container fluid>
         <h2 className="mt-3 text-start p-3">Categoris</h2>
-        <Row className="p-3">
+        <Row className="">
           <Accordion />
         </Row>
-        <h2 className="mt-3 p-3 text-start">Shop All You Need</h2>
-        <div className="p-4"><Row
+        <h2 className="mt-5 p-3 text-start">Shop All You Need</h2>
+        <div className="p-3">
+          <Row
           className="mb-2 p-3"
           style={{ border: "1px solid #ddd", borderRadius: "5px" }}
         >
