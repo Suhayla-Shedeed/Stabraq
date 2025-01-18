@@ -111,7 +111,7 @@ const UpperNavbar = () => {
         
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
-          <Nav
+          {/* <Nav
             className="ms-auto"
             style={{ fontSize: "13px", fontWeight: "700" }}
           >
@@ -123,7 +123,7 @@ const UpperNavbar = () => {
                 {category.toUpperCase()}
               </Nav.Link>
             ))}
-          </Nav>
+          </Nav> */}
 
           <Nav className="ms-auto">
             {loggedInUser ? (
