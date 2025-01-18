@@ -140,6 +140,9 @@ const UpperNavbar = () => {
                   align="end"
                 >
                   <NavDropdown.Item href="#Settings">Settings</NavDropdown.Item>
+                  <NavDropdown.Item href="#About">
+                  About
+                  </NavDropdown.Item>
                   <NavDropdown.Item href="#Contact Us">
                     Contact Us
                   </NavDropdown.Item>
@@ -156,15 +159,6 @@ const UpperNavbar = () => {
               <>
                 <Nav.Link href="/home">Home</Nav.Link>
                 <span className="mx-2 mt-2">|</span>
-
-                {/* <Nav.Link>
-                  <FontAwesomeIcon
-                    icon={faUser}
-                    size="lg"
-                    variant="primary"
-                    onClick={handleShow}
-                  />
-                </Nav.Link> */}
                 <NavDropdown
                   title={<FontAwesomeIcon icon={faUser} />}
                   id="basic-nav-dropdown"
