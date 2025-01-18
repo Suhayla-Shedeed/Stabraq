@@ -75,10 +75,7 @@ const MyCart = () => {
               />
               <div className="ms-2 me-auto" style={{ flex: 1 }}>
                 <h6 className="mb-0">{item.title}</h6>
-                <small>Price: ${item.price}</small>
-                <div className="ms-2">
-                  <strong>Total: ${item.price * item.quantity}</strong>
-                </div>
+                <strong><small>Price: ${item.price}</small></strong>
               </div>
 
               <button

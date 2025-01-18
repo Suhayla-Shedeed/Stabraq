@@ -92,24 +92,28 @@ function HomePage() {
         <h2 className="mt-5 p-3 text-start">Shop All You Need</h2>
         <div className="p-3">
           <Row
-          className="mb-2 p-3"
-          style={{ border: "1px solid #ddd", borderRadius: "5px" }}
-        >
-          {products.map((product) => (
-            <Col xs={12} sm={6} md={3} key={product.id}>
-              <Item
-                image={product.image}
-                title={product.title}
-                category={product.category}
-                price={`$${product.price}`}
-                description={product.description}
-                quantity={1}
-                onClick={() => navigate("/itemdetails", { state: { product } })} 
-                addToCart={() => addToCart(product)} 
-              />
-            </Col>
-          ))}
-        </Row></div>
+            className="mb-2 p-3"
+            style={{ border: "1px solid #ddd", borderRadius: "5px" }}
+          >
+            {products.map((product) => (
+              <Col xs={12} sm={6} md={3} key={product.id}>
+                <Item
+                  image={product.image}
+                  title={product.title}
+                  category={product.category}
+                  price={`$${product.price}`}
+                  description={product.description}
+                  quantity={1}
+                  onClick={() => {
+                    navigate("/itemdetails", { state: { product } });
+                    window.scrollTo({ top: 0, behavior: "smooth" });
+                  }}
+                  addToCart={() => addToCart(product)}
+                />
+              </Col>
+            ))}
+          </Row>
+        </div>
       </Container>
     </motion.div>
   );
