@@ -3,7 +3,6 @@ import { useParams, useNavigate } from "react-router-dom";
 import axios from "axios";
 import { motion } from "framer-motion"; // Import Framer Motion
 
-
 const CategoryPage = () => {
   const { category } = useParams(); // Extract the category from the URL
   const navigate = useNavigate(); // Initialize the navigate function
@@ -25,35 +24,40 @@ const CategoryPage = () => {
         setLoading(false);
       }
     };
-  // Refetch products when the category changes
+    // Refetch products when the category changes
     fetchProducts();
   }, [category]);
 
-
-  // if (loading) {
-  //   return <p>Loading products...</p>;
-  // }
+  if (loading) {
+    return (
+      <div className="text-center mt-5">
+        <div className="spinner-border text-primary" role="status">
+          <span className="visually-hidden">Loading...</span>
+        </div>
+      </div>
+    );
+  }
 
   if (error) {
-    return <p>{error}</p>;
+    return <p className="text-danger text-center mt-5">{error}</p>;
   }
 
   return (
-    <><motion.div
+    <motion.div
       initial={{ opacity: 0, y: 20 }} // Start position
       animate={{ opacity: 1, y: 0 }} // End position
       exit={{ opacity: 0, y: 20 }} // Exit animation
       transition={{ duration: 0.5 }} // Animation duration
+      className="container mt-4"
     >
       <h2
         className="mt-3 mb-3 text-start ms-3 p-2"
-        style={{ fontSize: "24px" }}
+        style={{ fontSize: "24px", fontWeight: "bold" }}
       >
         {category.toUpperCase()}
       </h2>
       <motion.div
-        className="ms-3"
-        style={{ display: "flex", flexWrap: "wrap", gap: "20px" }}
+        className="product-grid"
         initial="hidden"
         animate="visible"
         variants={{
@@ -67,13 +71,7 @@ const CategoryPage = () => {
         {products.map((product) => (
           <motion.div
             key={product.id}
-            style={{
-              border: "1px solid #ddd",
-              padding: "10px",
-              borderRadius: "5px",
-              width: "200px",
-              cursor: "pointer",
-            }}
+            className="product-card"
             onClick={() => navigate("/itemdetails", { state: { product } })}
             whileHover={{ scale: 1.05 }} // Slight zoom on hover
             whileTap={{ scale: 0.95 }} // Slight shrink on tap
@@ -84,17 +82,14 @@ const CategoryPage = () => {
             <img
               src={product.image}
               alt={product.title}
-              style={{ width: "100%", height: "150px", objectFit: "contain" }} />
-            <h5 style={{ fontSize: "16px", margin: "10px 0" }}>
-              {product.title}
-            </h5>
-            <p style={{ fontSize: "14px", color: "#888" }}>
-              ${product.price.toFixed(2)}
-            </p>
+              className="product-image"
+            />
+            <h5 className="product-title">{product.title}</h5>
+            <p className="product-price">${product.price.toFixed(2)}</p>
           </motion.div>
         ))}
       </motion.div>
-    </motion.div></>
+    </motion.div>
   );
 };
 

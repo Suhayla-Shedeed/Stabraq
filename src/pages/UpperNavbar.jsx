@@ -28,7 +28,7 @@ const UpperNavbar = () => {
   const [errors, setErrors] = useState({});
   const [loading, setLoading] = useState(false);
 
-  const { cart } = useContext(CartContext); 
+  const { cart } = useContext(CartContext);
 
   const handleShow = () => setShow(true);
   const handleClose = () => setShow(false);
@@ -86,7 +86,6 @@ const UpperNavbar = () => {
     const emailPrefix = formData.email.split("@")[0];
     setLoggedInUser(emailPrefix);
     localStorage.setItem("loggedInUser", emailPrefix); // Save to local storage
-    // alert("Login Successful!");
     setShow(false);
     navigate("/home");
   };
@@ -98,54 +97,32 @@ const UpperNavbar = () => {
   };
 
   return (
-    <Navbar bg="light" expand="lg" style={{ height: "50px" }} fixed="top">
+    <Navbar bg="light" expand="lg" fixed="top" className="shadow-sm">
       <Container fluid>
-        <Navbar.Brand href="/" className="me-auto">
+        <Navbar.Brand href="/">
           <img
             src="/src/images/logo.png"
             alt="Logo"
             className="m-2"
-            style={{ maxWidth: "150px", height: "auto" }}
+            style={{ maxWidth: "120px", height: "auto" }}
           />
         </Navbar.Brand>
-        
+
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
-          {/* <Nav
-            className="ms-auto"
-            style={{ fontSize: "13px", fontWeight: "700" }}
-          >
-            {categories.map((category, index) => (
-              <Nav.Link
-                key={index}
-                onClick={() => navigate(`/category/${category}`)}
-              >
-                {category.toUpperCase()}
-              </Nav.Link>
-            ))}
-          </Nav> */}
-
-          <Nav className="ms-auto">
+          <Nav className="ms-auto align-items-center">
+            <Nav.Link href="/home">Home</Nav.Link>
             {loggedInUser ? (
               <>
-                <Nav.Link href="/home">Home</Nav.Link>
-                <span className="mx-2 mt-2">|</span>
-
-                <Nav.Link href="/home">{loggedInUser}</Nav.Link>
-
-                <span className="mx-2 mt-2">|</span>
+                <Nav.Link href="/profile">{loggedInUser}</Nav.Link>
                 <NavDropdown
                   title={<FontAwesomeIcon icon={faUser} />}
-                  id="basic-nav-dropdown"
+                  id="user-dropdown"
                   align="end"
                 >
                   <NavDropdown.Item href="#Settings">Settings</NavDropdown.Item>
-                  <NavDropdown.Item href="#About">
-                  About
-                  </NavDropdown.Item>
-                  <NavDropdown.Item href="#Contact Us">
-                    Contact Us
-                  </NavDropdown.Item>
+                  <NavDropdown.Item href="#About">About</NavDropdown.Item>
+                  <NavDropdown.Item href="#Contact Us">Contact Us</NavDropdown.Item>
                   <NavDropdown.Divider />
                   <NavDropdown.Item
                     onClick={handleLogout}
@@ -156,35 +133,24 @@ const UpperNavbar = () => {
                 </NavDropdown>
               </>
             ) : (
-              <>
-                <Nav.Link href="/home">Home</Nav.Link>
-                <span className="mx-2 mt-2">|</span>
-                <NavDropdown
-                  title={<FontAwesomeIcon icon={faUser} />}
-                  id="basic-nav-dropdown"
-                  align="end"
+              <NavDropdown
+                title={<FontAwesomeIcon icon={faUser} />}
+                id="guest-dropdown"
+                align="end"
+              >
+                <NavDropdown.Item href="#Settings">Settings</NavDropdown.Item>
+                <NavDropdown.Item href="#About">About</NavDropdown.Item>
+                <NavDropdown.Item href="#Contact Us">Contact Us</NavDropdown.Item>
+                <NavDropdown.Divider />
+                <NavDropdown.Item
+                  onClick={handleShow}
+                  style={{ color: "red" }}
                 >
-                  <NavDropdown.Item href="#Settings">Settings</NavDropdown.Item>
-                  <NavDropdown.Item href="#About">
-                  About
-                  </NavDropdown.Item>
-                  <NavDropdown.Item href="#Contact Us">
-                    Contact Us
-                  </NavDropdown.Item>
-                  
-                  <NavDropdown.Divider />
-                  <NavDropdown.Item
-                    onClick={handleShow}
-                    style={{ color: "red" }}
-                  >
-                    Login
-                  </NavDropdown.Item>
-                </NavDropdown>
-              </>
+                  Login
+                </NavDropdown.Item>
+              </NavDropdown>
             )}
-
             <Nav.Link
-              className="me-4"
               onClick={() => navigate("/mycart")}
               style={{ position: "relative" }}
             >
@@ -192,8 +158,8 @@ const UpperNavbar = () => {
               <span
                 style={{
                   position: "absolute",
-                  top: "16px",
-                  right: "-7px",
+                  top: "10px",
+                  right: "-5px",
                   backgroundColor: "orange",
                   color: "white",
                   borderRadius: "50%",
@@ -207,7 +173,6 @@ const UpperNavbar = () => {
           </Nav>
         </Navbar.Collapse>
       </Container>
-
 
       {/* Login Modal */}
       <Modal show={show} onHide={handleClose} centered>

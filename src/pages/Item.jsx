@@ -1,18 +1,75 @@
-import React, { useState, useEffect } from 'react';
-import { Card, Button } from "react-bootstrap";
-import axios from 'axios';
+import React from "react";
+import { Card } from "react-bootstrap";
 
-const Item = ({ image, title, color, price,category  ,  description, onClick }) => {
+const Item = ({ image, title, category, price, description, onClick }) => {
   return (
-    <Card className="item-card" style={{  margin: "1rem auto" }} >
-      <div className="image-container" onClick={onClick} style={{ cursor: 'pointer' }}>
-        <Card.Img variant="top" src={image} alt={title} className="item-image mt-4" />
+    <Card
+      className="item-card shadow-sm"
+      style={{
+        margin: "1rem auto",
+        borderRadius: "10px",
+        overflow: "hidden",
+        transition: "transform 0.3s ease, box-shadow 0.3s ease",
+        cursor: "pointer",
+        height: "300px", // Set a fixed height for the entire card
+      }}
+      onClick={onClick}
+    >
+      <div
+        className="image-container"
+        style={{
+          height: "200px", // Fixed height for the image
+          overflow: "hidden",
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+        }}
+      >
+        <Card.Img
+          variant="top"
+          src={image}
+          alt={title}
+          style={{
+            width: "100%",
+            height: "100%",
+            objectFit: "contain", // Ensures the image is contained within the div
+          }}
+          className="item-image"
+        />
       </div>
-      <Card.Body>
-        <Card.Title>{title}</Card.Title>
-        <Card.Text>Category: <strong className='text-capitalize'>{category}</strong></Card.Text>
-        <Card.Text>
-          Price: <strong>{price}</strong>
+      <Card.Body style={{ display: "flex", flexDirection: "column", justifyContent: "space-between" }}>
+        <Card.Title
+          style={{
+            fontSize: "1rem",
+            fontWeight: "600",
+            color: "#333",
+            textAlign: "center",
+          }}
+        >
+          {title}
+        </Card.Title>
+        <Card.Text
+          style={{
+            fontSize: "0.9rem",
+            color: "#666",
+            textAlign: "center",
+            marginBottom: "8px",
+          }}
+        >
+          Category:{" "}
+          <strong className="text-capitalize" style={{ color: "#007bff" }}>
+            {category}
+          </strong>
+        </Card.Text>
+        <Card.Text
+          style={{
+            fontSize: "1rem",
+            fontWeight: "bold",
+            color: "#000",
+            textAlign: "center",
+          }}
+        >
+          ${price}
         </Card.Text>
       </Card.Body>
     </Card>
