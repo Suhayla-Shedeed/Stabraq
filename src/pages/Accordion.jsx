@@ -1,25 +1,23 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-import { motion } from "framer-motion"; // Import Framer Motion
-import { useNavigate } from "react-router-dom"; // Import useNavigate from react-router-dom
+import { motion } from "framer-motion"; 
+import { useNavigate } from "react-router-dom"; 
 import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap/dist/js/bootstrap.bundle.min.js";
-import Item from "./Item"; // Import the Item component
+import Item from "./Item"; 
 
 const Accordion = () => {
   const [categories, setCategories] = useState([]);
   const [loading, setLoading] = useState(true);
-  const navigate = useNavigate(); // Initialize navigate function
+  const navigate = useNavigate(); 
 
   useEffect(() => {
     const fetchCategories = async () => {
       try {
-        // Fetch categories
         const { data: categoryList } = await axios.get(
           "https://fakestoreapi.com/products/categories"
         );
 
-        // Fetch items for each category
         const categoryData = await Promise.all(
           categoryList.map(async (category) => {
             const { data: items } = await axios.get(

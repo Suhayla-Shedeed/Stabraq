@@ -12,8 +12,15 @@ const MyCart = () => {
   const [draggingItem, setDraggingItem] = useState(null);
   const navigate = useNavigate();
 
-  const removeFromCart = (id) => setCart(cart.filter((item) => item.id !== id));
 
+  const removeFromCart = (id) => {
+    if (cart.length === 1) {
+      clearCart();} 
+      else {
+      setCart(cart.filter((item) => item.id !== id)); 
+    }
+  };
+  
   const handleDragStart = (e, item) => {
     setDraggingItem(item);
     e.dataTransfer.setData("text/plain", "");
@@ -45,16 +52,25 @@ const MyCart = () => {
   };
 
   const handleClickAndReset = () => {
-    setShowMessage(true); 
-    setTimeout(() => setShowMessage(false), 3000);    
-    clearCart(); 
+    setShowMessage(true);
+    setTimeout(() => setShowMessage(false), 3000);
+    clearCart();
+  };
+
+  const updateQuantity = (id, increment) => {
+    const updatedCart = cart.map((item) =>
+      item.id === id
+        ? { ...item, quantity: Math.max(1, item.quantity + increment) }
+        : item
+    );
+    setCart(updatedCart);
   };
   return (
     <motion.div
-      initial={{ opacity: 0, y: 20 }} // Start position
-      animate={{ opacity: 1, y: 0 }} // End position
-      exit={{ opacity: 0, y: 20 }} // Exit animation
-      transition={{ duration: 0.5 }} // Animation duration
+      initial={{ opacity: 0, y: 20 }} 
+      animate={{ opacity: 1, y: 0 }} 
+      exit={{ opacity: 0, y: 20 }}
+      transition={{ duration: 0.5 }} 
     >
       <Container>
         <h2 className="mt-3 mb-3 p-3 text-start">Cart Items</h2>
@@ -87,6 +103,31 @@ const MyCart = () => {
                   <small>Price: ${item.price}</small>
                 </strong>
               </div>
+              <div className="d-flex ">
+                <Button
+                  variant="outline-secondary"
+                  size="sm"
+                  onClick={() => updateQuantity(item.id, -1)}
+                >
+                  -
+                </Button>
+                <span
+                  style={{
+                    margin: "0 10px",
+                    minWidth: "30px",
+                    textAlign: "center",
+                  }}
+                >
+                  {item.quantity}
+                </span>
+                <Button
+                  variant="outline-secondary"
+                  size="sm"
+                  onClick={() => updateQuantity(item.id, 1)}
+                >
+                  +
+                </Button>
+              </div>
 
               <button
                 className="border border-secondary rounded-3 m-2"
@@ -105,7 +146,7 @@ const MyCart = () => {
           ))}
         </div>
         <button onClick={handleClickAndReset}>Place Order</button>
-          {showMessage && (
+        {showMessage && (
           <p style={{ color: "green", fontWeight: "bold", marginTop: "10px" }}>
             Order placed successfully!
           </p>

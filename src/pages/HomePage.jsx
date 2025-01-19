@@ -1,28 +1,26 @@
 import React, { useState, useEffect, useContext } from "react";
 import { useNavigate } from "react-router-dom";
-import { Row, Col, Container, Spinner, Alert, Collapse } from "react-bootstrap"; // Import Collapse
+import { Row, Col, Container, Spinner, Alert, Collapse } from "react-bootstrap"; 
 import Item from "./Item";
-import UpperNavbar from "./UpperNavbar";
-import ModernCarousel from "./ModernCarousel";
 import axios from "axios";
-import { motion } from "framer-motion"; // Import Framer Motion
-import { CartContext } from "../contexts/CartContext"; // Import CartContext
+import { motion } from "framer-motion"; 
+import { CartContext } from "../contexts/CartContext"; 
 import Accordion from "./Accordion";
-import { BsChevronDown, BsChevronUp } from "react-icons/bs"; // Import arrow icons
+import { BsChevronDown, BsChevronUp } from "react-icons/bs"; 
 
 function HomePage() {
-  const { cart, setCart } = useContext(CartContext); // Access cart and setCart from context
+  const { cart, setCart } = useContext(CartContext); 
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-  const [open, setOpen] = useState(false); // State to control the collapse of the section
+  const [open, setOpen] = useState(false); 
 
   useEffect(() => {
     const fetchProducts = async () => {
       try {
         const response = await axios.get("https://fakestoreapi.com/products", {
           timeout: 5000,
-        }); // timeout 5 seconds
+        });
         setProducts(response.data);
         setLoading(false);
       } catch (err) {
@@ -36,7 +34,6 @@ function HomePage() {
 
   const navigate = useNavigate();
 
-  // spinner while loading
   if (loading) {
     return (
       <div
@@ -50,7 +47,6 @@ function HomePage() {
     );
   }
 
-  // Display an error message if the API call fails
   if (error) {
     return (
       <div
@@ -81,19 +77,19 @@ function HomePage() {
 
   return (
     <motion.div
-      initial={{ opacity: 0, y: 20 }} // Start position
-      animate={{ opacity: 1, y: 0 }} // End position
-      exit={{ opacity: 0, y: 20 }} // Exit animation
-      transition={{ duration: 0.5 }} // Animation duration
+      initial={{ opacity: 0, y: 20 }} 
+      animate={{ opacity: 1, y: 0 }} 
+      exit={{ opacity: 0, y: 20 }} 
+      transition={{ duration: 0.5 }} 
     >
       <Container fluid>
         <h2 className="mt-3 text-start p-3">Categories</h2>
         <Row>
           <Accordion />
         </Row>
+        
         <h2 className="mt-5 p-3 text-start d-flex align-items-center">
           Shop All You Need
-          {/* Button with arrow */}
           <button
             onClick={() => setOpen(!open)}
             aria-controls="shopSection"
@@ -109,8 +105,6 @@ function HomePage() {
             {open ? <BsChevronUp style={{ color: "#808080" }} /> : <BsChevronDown  style={{ color: "#000000" }}/>}
           </button>
         </h2>
-
-        {/* Collapsible section for products */}
         <Collapse in={open}>
           <div id="shopSection">
             <div className="p-3">
@@ -131,6 +125,11 @@ function HomePage() {
                         navigate("/itemdetails", { state: { product } });
                         window.scrollTo({ top: 0, behavior: "smooth" });
                       }}
+
+
+                      
+
+
                       addToCart={() => addToCart(product)}
                     />
                   </Col>

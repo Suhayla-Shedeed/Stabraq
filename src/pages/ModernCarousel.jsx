@@ -5,7 +5,6 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 const ModernCarousel = () => {
     return (
         <Carousel>
-            {/* Slide 1 */}
             <Carousel.Item>
                 <div
                     style={{
@@ -17,10 +16,10 @@ const ModernCarousel = () => {
                     }}
                 >
                     <img
-                        src="src/images/1.png"  // Assuming the images are in the public/images folder
+                        src="src/images/1.png"  
                         alt="Slide 1"
                         style={{
-                            objectFit: 'cover',  // Ensures the image fills the container without distortion
+                            objectFit: 'cover',  
                             width: '100%',
                             height: '100%',
                         }}
@@ -28,7 +27,6 @@ const ModernCarousel = () => {
                 </div>
             </Carousel.Item>
 
-            {/* Slide 2 */}
             <Carousel.Item>
                 <div
                     style={{
@@ -40,10 +38,10 @@ const ModernCarousel = () => {
                     }}
                 >
                     <img
-                        src="src/images/2.png"  // Corrected image path
+                        src="src/images/2.png"  
                         alt="Slide 2"
                         style={{
-                            objectFit: 'cover',  // Ensures the image fills the container without distortion
+                            objectFit: 'cover', 
                             width: '100%',
                             height: '100%',
                         }}
@@ -51,7 +49,6 @@ const ModernCarousel = () => {
                 </div>
             </Carousel.Item>
 
-            {/* Add more slides as needed */}
         </Carousel>
     );
 };

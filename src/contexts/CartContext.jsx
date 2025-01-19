@@ -5,7 +5,6 @@ export const CartContext = createContext();
 export function CartProvider({ children }) {
   const [cart, setCart] = useState([]);
 
-  // Load cart from localStorage on mount
   useEffect(() => {
     const storedCart = JSON.parse(localStorage.getItem("cart"));
     if (storedCart) {
@@ -13,7 +12,6 @@ export function CartProvider({ children }) {
     }
   }, []);
 
-  // Save cart to localStorage whenever it changes
   useEffect(() => {
     if (cart.length > 0) {
       localStorage.setItem("cart", JSON.stringify(cart));
@@ -39,10 +37,9 @@ export function CartProvider({ children }) {
     setCart((prevCart) => prevCart.filter((item) => item.id !== id));
   };
 
-    // Clear the entire cart
     const clearCart = () => {
-      setCart([]); // This resets the cart to an empty array
-      localStorage.removeItem("cart"); // Optionally remove the cart from localStorage as well
+      setCart([]); 
+      localStorage.removeItem("cart"); 
     };
   
 

@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import UpperNavbar from "./UpperNavbar";
 import { useNavigate } from "react-router-dom";
-import { motion } from "framer-motion"; // Import Framer Motion
+import { motion } from "framer-motion";
 
 const Registeration = () => {
   const navigate = useNavigate();
@@ -18,7 +18,6 @@ const Registeration = () => {
 
   const [errors, setErrors] = useState({});
 
-  // Validation functions
   const validateForm = () => {
     const newErrors = {};
 
@@ -70,10 +69,10 @@ const Registeration = () => {
   return (
     <>
       <motion.div
-        initial={{ opacity: 0, y: 20 }} // Start position
-        animate={{ opacity: 1, y: 0 }} // End position
-        exit={{ opacity: 0, y: 20 }} // Exit animation
-        transition={{ duration: 0.5 }} // Animation duration
+        initial={{ opacity: 0, y: 20 }} 
+        animate={{ opacity: 1, y: 0 }} 
+        exit={{ opacity: 0, y: 20 }} 
+        transition={{ duration: 0.5 }} 
       >
         {" "}
         <div className="container mt-5">
@@ -83,7 +82,6 @@ const Registeration = () => {
             className="mx-auto "
             style={{ maxWidth: "500px" }}
           >
-            {/* First Name */}
             <div className="mb-1">
               <label htmlFor="firstName" className="form-label d-flex">
                 First Name
@@ -104,7 +102,6 @@ const Registeration = () => {
               )}
             </div>
 
-            {/* Last Name */}
             <div className="mb-1">
               <label htmlFor="lastName" className="form-label d-flex">
                 Last Name
@@ -119,7 +116,6 @@ const Registeration = () => {
               />
             </div>
 
-            {/* Username */}
             <div className="mb-1">
               <label htmlFor="username" className="form-label d-flex">
                 Username
@@ -140,7 +136,6 @@ const Registeration = () => {
               )}
             </div>
 
-            {/* Password */}
             <div className="mb-1">
               <label htmlFor="password" className="form-label d-flex">
                 Password
@@ -160,7 +155,6 @@ const Registeration = () => {
               )}
             </div>
 
-            {/* Email */}
             <div className="mb-1">
               <label htmlFor="email" className="form-label d-flex">
                 Email
@@ -179,7 +173,6 @@ const Registeration = () => {
               )}
             </div>
 
-            {/* Address */}
             <div className="mb-1">
               <label htmlFor="address" className="form-label d-flex">
                 Address
@@ -194,7 +187,6 @@ const Registeration = () => {
               ></input>
             </div>
 
-            {/* Submit Button */}
             <button type="submit" className="btn btn-dark w-50 mt-3">
               Create An Account
             </button>

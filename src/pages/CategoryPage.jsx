@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import axios from "axios";
-import { motion } from "framer-motion"; // Import Framer Motion
+import { motion } from "framer-motion"; 
 
 const CategoryPage = () => {
-  const { category } = useParams(); // Extract the category from the URL
-  const navigate = useNavigate(); // Initialize the navigate function
+  const { category } = useParams();
+  const navigate = useNavigate();
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -24,7 +24,6 @@ const CategoryPage = () => {
         setLoading(false);
       }
     };
-    // Refetch products when the category changes
     fetchProducts();
   }, [category]);
 
@@ -44,10 +43,10 @@ const CategoryPage = () => {
 
   return (
     <motion.div
-      initial={{ opacity: 0, y: 20 }} // Start position
-      animate={{ opacity: 1, y: 0 }} // End position
-      exit={{ opacity: 0, y: 20 }} // Exit animation
-      transition={{ duration: 0.5 }} // Animation duration
+      initial={{ opacity: 0, y: 20 }} 
+      animate={{ opacity: 1, y: 0 }} 
+      exit={{ opacity: 0, y: 20 }} 
+      transition={{ duration: 0.5 }} 
       className="container mt-4"
     >
       <h2
@@ -64,7 +63,7 @@ const CategoryPage = () => {
           hidden: { opacity: 0 },
           visible: {
             opacity: 1,
-            transition: { staggerChildren: 0.2 }, // Delay between children
+            transition: { staggerChildren: 0.2 }, 
           },
         }}
       >
@@ -73,8 +72,8 @@ const CategoryPage = () => {
             key={product.id}
             className="product-card"
             onClick={() => navigate("/itemdetails", { state: { product } })}
-            whileHover={{ scale: 1.05 }} // Slight zoom on hover
-            whileTap={{ scale: 0.95 }} // Slight shrink on tap
+            whileHover={{ scale: 1.05 }} 
+            whileTap={{ scale: 0.95 }} 
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.3 }}
