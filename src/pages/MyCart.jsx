@@ -19,6 +19,14 @@ const MyCart = () => {
     e.dataTransfer.setData("text/plain", "");
   };
 
+  const [showMessage, setShowMessage] = useState(false);
+
+  const handleClick = () => {
+    // setCart([]); // Reset the cart
+    setShowMessage(true); // Show the success message
+    setTimeout(() => setShowMessage(false), 3000); // Hide the message after 3 seconds
+  };
+    
   const handleDragEnd = () => {
     setDraggingItem(null);
   };
@@ -49,7 +57,7 @@ const MyCart = () => {
       transition={{ duration: 0.5 }} // Animation duration
     >
       <Container>
-        <h2 className="mt-3 mb-3 p-3 text-start">Cart Items</h2> 
+        <h2 className="mt-3 mb-3 p-3 text-start">Cart Items</h2>
         <div className="list-group">
           {cart.map((item) => (
             <div
@@ -75,7 +83,9 @@ const MyCart = () => {
               />
               <div className="ms-2 me-auto" style={{ flex: 1 }}>
                 <h6 className="mb-0">{item.title}</h6>
-                <strong><small>Price: ${item.price}</small></strong>
+                <strong>
+                  <small>Price: ${item.price}</small>
+                </strong>
               </div>
 
               <button
@@ -94,6 +104,12 @@ const MyCart = () => {
             </div>
           ))}
         </div>
+        <button onClick={handleClick}>Place Order</button>
+        {showMessage && (
+          <p style={{ color: "green", fontWeight: "bold", marginTop: "10px" }}>
+            Order placed successfully!
+          </p>
+        )}{" "}
       </Container>
     </motion.div>
   );

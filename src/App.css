@@ -1,15 +1,18 @@
+/* Root container */
 #root {
-  /* max-width: 1880px; */
-  width: 1880px;
-  height: 720px;
+  max-width: 100%; /* Make the width responsive */
+  width: 100%; /* Allow it to adapt to the viewport */
+  height: auto; /* Adjust height dynamically */
   margin: 0 auto;
-  /* padding: 2rem; */
   text-align: center;
+  padding: 1rem; /* Add padding for smaller screens */
 }
 
+/* Media Queries for smaller devices */
 @media (max-width: 767px) {
   .navbar {
     padding: 10px;
+    flex-direction: column;
   }
 
   .navbar-brand img {
@@ -25,52 +28,70 @@
   }
 }
 
+@media (max-width: 576px) {
+  .navbar {
+    padding: 5px;
+  }
 
+  .navbar-brand img {
+    max-width: 100px;
+  }
+
+  .nav-link {
+    font-size: 10px;
+  }
+}
+
+/* Footer */
 footer {
   background-color: #000;
+  padding: 1rem; /* Add padding for better spacing */
+  color: #fff; /* Ensure text is visible */
+  text-align: center;
 }
 
 footer a:hover {
   text-decoration: underline;
 }
 
-
-
+/* Text styling */
 .read-the-docs {
   color: #888;
 }
-/* //////////////// register ///////////////////////////////////// */
 
-.form-label{
+/* Register form */
+.form-label {
   font-weight: 600;
+  font-size: 14px; /* Adjust for readability */
 }
 
-/*                             Item CSS                                   */
+/* Item CSS */
 .item-card {
   overflow: hidden;
   transition: transform 0.3s ease-in-out;
+  margin: 1rem auto; /* Center and add spacing for smaller screens */
+  max-width: 300px; /* Limit width for smaller screens */
 }
 
 .image-container {
   overflow: hidden;
-  width: 18rem;
-  height: 14rem;
+  width: 100%; /* Adjust width dynamically */
+  max-width: 18rem;
+  height: auto; /* Maintain aspect ratio */
 }
 
 .item-image {
   transition: transform 0.3s ease-in-out;
-  max-width: 10rem;
-  max-height: 14rem;
+  width: 100%; /* Scale image to fit */
+  height: auto;
   object-fit: cover;
 }
 
 .item-card:hover .item-image {
-  transform: scale(0.9); 
+  transform: scale(0.9);
 }
 
-/*                             Accordion                                   */
-
-/* Remove blue hover/focus effect from the accordion button */
+/* Accordion */
 .accordion-button:focus {
   box-shadow: none;
   outline: none;
@@ -79,4 +100,3 @@ footer a:hover {
 .accordion-button:active {
   background-color: #f8f9fa; /* Optional: Change background color when active */
 }
-
