@@ -1,5 +1,10 @@
-
 # React E-commerce Task
+
+
+https://github.com/user-attachments/assets/c95cffeb-51d5-449c-8f47-d6f0c8736b88
+
+
+
 
 ## Objective
 This is a small e-commerce web application that allows users to:
