@@ -82,9 +82,11 @@ footer a:hover {
 
 .item-image {
   transition: transform 0.3s ease-in-out;
-  width: 100%; /* Scale image to fit */
-  height: auto;
+  width: 89%; /* Scale image to fit */
+  height: 130px;
   object-fit: cover;
+  padding: 2px;
+  margin-top: 12px;
 }
 
 .item-card:hover .item-image {
@@ -100,3 +102,119 @@ footer a:hover {
 .accordion-button:active {
   background-color: #f8f9fa; /* Optional: Change background color when active */
 }
+
+
+
+
+/* CategoryPage.css */
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.product-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 20px;
+  padding: 0 15px;
+}
+
+.product-card {
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: 10px;
+  text-align: center;
+  cursor: pointer;
+  transition: box-shadow 0.3s ease;
+}
+
+.product-card:hover {
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.product-image {
+  width: 100%;
+  height: 150px;
+  object-fit: contain;
+}
+
+.product-title {
+  font-size: 16px;
+  margin: 10px 0;
+  font-weight: 600;
+  color: #333;
+}
+
+.product-price {
+  font-size: 14px;
+  color: #888;
+}
+
+/* Mobile Responsiveness */
+@media (max-width: 576px) {
+  .product-title {
+    font-size: 14px;
+  }
+
+  .product-price {
+    font-size: 12px;
+  }
+}
+
+/* Tablet Responsiveness */
+@media (max-width: 768px) {
+  .product-grid {
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  }
+}
+
+
+/* Item.css */
+.item-card {
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  border: 1px solid #ddd;
+  height: 400px; /* Fixed height for the entire card */
+}
+
+.item-card:hover {
+  transform: scale(1.05);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+}
+
+.item-card .image-container {
+  position: relative;
+  height: 200px; /* Fixed height for the image */
+}
+
+.item-card .item-image {
+  width: 100%;
+  height: 100%;
+  object-fit: contain; /* Ensures images are contained within the fixed height */
+}
+
+.item-card .card-body {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 100%;
+}
+
+@media (max-width: 576px) {
+  .item-card {
+    margin: 0.5rem auto;
+    height: 350px; /* Adjust card height on smaller screens */
+  }
+
+  .item-card .item-image {
+    height: 150px; /* Adjust image height on smaller screens */
+  }
+
+  .item-card .card-title {
+    font-size: 0.9rem;
+  }
+
+  .item-card .card-text {
+    font-size: 0.8rem;
+  }
+}
+

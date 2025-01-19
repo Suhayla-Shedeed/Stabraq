@@ -38,15 +38,19 @@ const ItemDetails = () => {
     >
       <Container
         fluid
-        className="vh-100 d-flex align-items-center justify-content-center"
+        className="d-flex flex-column justify-content-between"
+        style={{ minHeight: "100vh", padding: "20px" }}
       >
-        <Row className="w-100 " style={{ maxWidth: "1200px" }}>
+        <Row className="w-100" style={{ maxWidth: "1200px" }}>
           <Col
             xs={12}
             sm={6}
             className="d-flex flex-column justify-content-center"
+            style={{ padding: "20px" }}
           >
-            <h2 className="text-start">{product.title}</h2>
+            <h2 className="text-start" style={{ fontSize: "2rem" }}>
+              {product.title}
+            </h2>
             <p className="text-capitalize text-start">
               Category: <strong>{product.category}</strong>
             </p>
@@ -80,17 +84,29 @@ const ItemDetails = () => {
             xs={12}
             sm={6}
             className="d-flex justify-content-center align-items-center"
+            style={{ padding: "20px" }}
           >
-            <img
-              src={product.image}
-              alt={product.title}
+            <div
               style={{
                 width: "85%",
-                maxHeight: "80vh",
-                borderRadius: "8px",
-                objectFit: "contain",
+                maxHeight: "60vh", // Limit the image height to prevent overflow
+                overflow: "hidden",
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center",
               }}
-            />
+            >
+              <img
+                src={product.image}
+                alt={product.title}
+                style={{
+                  maxWidth: "63%",
+                  maxHeight: "80%",
+                  objectFit: "contain",
+                  borderRadius: "8px",
+                }}
+              />
+            </div>
           </Col>
         </Row>
       </Container>

@@ -4,6 +4,7 @@ import { motion } from "framer-motion"; // Import Framer Motion
 import { useNavigate } from "react-router-dom"; // Import useNavigate from react-router-dom
 import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap/dist/js/bootstrap.bundle.min.js";
+import Item from "./Item"; // Import the Item component
 
 const Accordion = () => {
   const [categories, setCategories] = useState([]);
@@ -81,35 +82,19 @@ const Accordion = () => {
                 {category.items.map((item) => (
                   <motion.div
                     key={item.id}
-                    className="card"
-                    style={{
-                      width: "200px",
-                      border: "1px solid #ddd",
-                      borderRadius: "5px",
-                      cursor: "pointer",
-                      padding: "8px",
-                    }}
-                    whileHover={{ scale: 1.05 }}
-                    whileTap={{ scale: 0.95 }}
                     initial={{ opacity: 0, y: 10 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.3 }}
-                    onClick={() => navigate("/itemdetails", { state: { product: item } })} // Navigate on click
                   >
-                    <img
-                      src={item.image}
-                      className="card-img-top"
-                      alt={item.title}
-                      style={{ height: "150px", objectFit: "contain" }}
+                    <Item
+                      image={item.image}
+                      title={item.title}
+                      category={category.name}
+                      price={item.price.toFixed(2)}
+                      onClick={() =>
+                        navigate("/itemdetails", { state: { product: item } })
+                      }
                     />
-                    <div className="card-body">
-                      <h5 className="card-title" style={{ fontSize: "16px" }}>
-                        {item.title}
-                      </h5>
-                      <p className="card-text" style={{ fontSize: "14px", color: "#888" }}>
-                        ${item.price.toFixed(2)}
-                      </p>
-                    </div>
                   </motion.div>
                 ))}
               </motion.div>
