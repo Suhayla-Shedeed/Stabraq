@@ -13,7 +13,7 @@ import { useNavigate } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUser, faShoppingBag } from "@fortawesome/free-solid-svg-icons";
 import axios from "axios";
-import { CartContext } from "../contexts/CartContext"; // Import CartContext
+import { CartContext } from "../contexts/CartContext";
 
 const UpperNavbar = () => {
   const [show, setShow] = useState(false);
@@ -35,7 +35,6 @@ const UpperNavbar = () => {
 
   const navigate = useNavigate();
 
-  // Fetch categories from API
   useEffect(() => {
     const fetchCategories = async () => {
       try {
@@ -85,14 +84,14 @@ const UpperNavbar = () => {
     setErrors({});
     const emailPrefix = formData.email.split("@")[0];
     setLoggedInUser(emailPrefix);
-    localStorage.setItem("loggedInUser", emailPrefix); // Save to local storage
+    localStorage.setItem("loggedInUser", emailPrefix);
     setShow(false);
     navigate("/home");
   };
 
   const handleLogout = () => {
     setLoggedInUser("");
-    localStorage.removeItem("loggedInUser"); // Clear from local storage
+    localStorage.removeItem("loggedInUser"); 
     navigate("/");
   };
 
@@ -114,7 +113,7 @@ const UpperNavbar = () => {
             <Nav.Link href="/home">Home</Nav.Link>
             {loggedInUser ? (
               <>
-                <Nav.Link href="/profile">{loggedInUser}</Nav.Link>
+                <Nav.Link href="/home">{loggedInUser}</Nav.Link>
                 <NavDropdown
                   title={<FontAwesomeIcon icon={faUser} />}
                   id="user-dropdown"
@@ -172,7 +171,6 @@ const UpperNavbar = () => {
         </Navbar.Collapse>
       </Container>
 
-      {/* Login Modal */}
       <Modal show={show} onHide={handleClose} centered>
         <Modal.Header closeButton>
           <Modal.Title>Login</Modal.Title>

@@ -11,14 +11,15 @@ const Item = ({ image, title, category, price, description, onClick }) => {
         overflow: "hidden",
         transition: "transform 0.3s ease, box-shadow 0.3s ease",
         cursor: "pointer",
-        height: "300px", // Set a fixed height for the entire card
+        height: "300px", 
       }}
       onClick={onClick}
+      
     >
       <div
         className="image-container"
         style={{
-          height: "200px", // Fixed height for the image
+          height: "200px", 
           overflow: "hidden",
           display: "flex",
           justifyContent: "center",
@@ -32,7 +33,7 @@ const Item = ({ image, title, category, price, description, onClick }) => {
           style={{
             width: "100%",
             height: "100%",
-            objectFit: "contain", // Ensures the image is contained within the div
+            objectFit: "contain",
           }}
           className="item-image"
         />

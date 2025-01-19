@@ -7,10 +7,10 @@ function ContactUs() {
   return (
     <>
       <motion.div
-        initial={{ opacity: 0, y: 20 }} // Start position
-        animate={{ opacity: 1, y: 0 }} // End position
-        exit={{ opacity: 0, y: 20 }} // Exit animation
-        transition={{ duration: 0.5 }} // Animation duration
+        initial={{ opacity: 0, y: 20 }} 
+        animate={{ opacity: 1, y: 0 }} 
+        exit={{ opacity: 0, y: 20 }} 
+        transition={{ duration: 0.5 }} 
       >
         <div className="" style={{ fontSize: "24px", fontWeight: "800" }}>
           <h1 className="text-start p-5">Contact Us</h1>

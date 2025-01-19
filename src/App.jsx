@@ -51,7 +51,7 @@ function App() {
       <Router>
         <UpperNavbar cart={cart} />
         
-        <div style={{ minHeight: "calc(100vh - 100px)" }}> {/* Adjust height to accommodate the footer */}
+        <div style={{ minHeight: "calc(100vh - 100px)" }}>
           <Routes>
             <Route path="/" element={<LandingPage />} />
             <Route path="/moderncarousel" element={<ModernCarousel />} />

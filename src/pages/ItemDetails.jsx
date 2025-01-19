@@ -89,7 +89,7 @@ const ItemDetails = () => {
             <div
               style={{
                 width: "85%",
-                maxHeight: "60vh", // Limit the image height to prevent overflow
+                maxHeight: "60vh", 
                 overflow: "hidden",
                 display: "flex",
                 justifyContent: "center",
