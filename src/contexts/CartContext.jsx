@@ -19,6 +19,7 @@ export function CartProvider({ children }) {
       localStorage.setItem("cart", JSON.stringify(cart));
     }
   }, [cart]);
+  
 
   const addToCart = (product) => {
     setCart((prevCart) => {
@@ -38,9 +39,12 @@ export function CartProvider({ children }) {
     setCart((prevCart) => prevCart.filter((item) => item.id !== id));
   };
 
-  const clearCart = () => {
-    setCart([]);
-  };
+    // Clear the entire cart
+    const clearCart = () => {
+      setCart([]); // This resets the cart to an empty array
+      localStorage.removeItem("cart"); // Optionally remove the cart from localStorage as well
+    };
+  
 
   return (
     <CartContext.Provider value={{ cart, addToCart, removeFromCart, setCart, clearCart }}>

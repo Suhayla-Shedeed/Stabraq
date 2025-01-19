@@ -1,52 +1,17 @@
-/* Root container */
+/* Global Styles */
 #root {
-  max-width: 100%; /* Make the width responsive */
-  width: 100%; /* Allow it to adapt to the viewport */
-  height: auto; /* Adjust height dynamically */
+  max-width: 100%;
+  width: 100%;
+  height: auto;
   margin: 0 auto;
   text-align: center;
-  padding: 1rem; /* Add padding for smaller screens */
-}
-
-/* Media Queries for smaller devices */
-@media (max-width: 767px) {
-  .navbar {
-    padding: 10px;
-    flex-direction: column;
-  }
-
-  .navbar-brand img {
-    max-width: 120px;
-  }
-
-  .nav-link {
-    font-size: 12px;
-  }
-
-  .navbar-collapse {
-    text-align: center;
-  }
-}
-
-@media (max-width: 576px) {
-  .navbar {
-    padding: 5px;
-  }
-
-  .navbar-brand img {
-    max-width: 100px;
-  }
-
-  .nav-link {
-    font-size: 10px;
-  }
 }
 
 /* Footer */
 footer {
   background-color: #000;
-  padding: 1rem; /* Add padding for better spacing */
-  color: #fff; /* Ensure text is visible */
+  padding: 1rem;
+  color: #fff;
   text-align: center;
 }
 
@@ -54,35 +19,35 @@ footer a:hover {
   text-decoration: underline;
 }
 
-/* Text styling */
+/* Text Styling */
 .read-the-docs {
   color: #888;
 }
 
-/* Register form */
+/* Register Form */
 .form-label {
   font-weight: 600;
-  font-size: 14px; /* Adjust for readability */
+  font-size: 14px;
 }
 
-/* Item CSS */
+/* Item Card Styles */
 .item-card {
   overflow: hidden;
-  transition: transform 0.3s ease-in-out;
-  margin: 1rem auto; /* Center and add spacing for smaller screens */
-  max-width: 300px; /* Limit width for smaller screens */
+  transition: transform 0.3s ease-in-out, box-shadow 0.3s ease;
+  margin: 1rem auto;
+  max-width: 300px;
 }
 
 .image-container {
   overflow: hidden;
-  width: 100%; /* Adjust width dynamically */
+  width: 100%;
   max-width: 18rem;
-  height: auto; /* Maintain aspect ratio */
+  height: auto;
 }
 
 .item-image {
   transition: transform 0.3s ease-in-out;
-  width: 89%; /* Scale image to fit */
+  width: 89%;
   height: 130px;
   object-fit: cover;
   padding: 2px;
@@ -93,20 +58,17 @@ footer a:hover {
   transform: scale(0.9);
 }
 
-/* Accordion */
+/* Accordion Styles */
 .accordion-button:focus {
   box-shadow: none;
   outline: none;
 }
 
 .accordion-button:active {
-  background-color: #f8f9fa; /* Optional: Change background color when active */
+  background-color: #f8f9fa;
 }
 
-
-
-
-/* CategoryPage.css */
+/* Category Page Styles */
 .container {
   max-width: 1200px;
   margin: 0 auto;
@@ -150,32 +112,7 @@ footer a:hover {
   color: #888;
 }
 
-/* Mobile Responsiveness */
-@media (max-width: 576px) {
-  .product-title {
-    font-size: 14px;
-  }
-
-  .product-price {
-    font-size: 12px;
-  }
-}
-
-/* Tablet Responsiveness */
-@media (max-width: 768px) {
-  .product-grid {
-    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-  }
-}
-
-
-/* Item.css */
-.item-card {
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
-  border: 1px solid #ddd;
-  height: 400px; /* Fixed height for the entire card */
-}
-
+/* Item Card Hover Effect */
 .item-card:hover {
   transform: scale(1.05);
   box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
@@ -183,13 +120,13 @@ footer a:hover {
 
 .item-card .image-container {
   position: relative;
-  height: 200px; /* Fixed height for the image */
+  height: 200px;
 }
 
 .item-card .item-image {
   width: 100%;
   height: 100%;
-  object-fit: contain; /* Ensures images are contained within the fixed height */
+  object-fit: contain;
 }
 
 .item-card .card-body {
@@ -199,14 +136,37 @@ footer a:hover {
   height: 100%;
 }
 
+/* Media Queries */
+
+/* Mobile Responsiveness */
 @media (max-width: 576px) {
+  .navbar {
+    padding: 5px;
+  }
+
+  .navbar-brand img {
+    max-width: 100px;
+  }
+
+  .nav-link {
+    font-size: 10px;
+  }
+
+  .product-title {
+    font-size: 14px;
+  }
+
+  .product-price {
+    font-size: 12px;
+  }
+
   .item-card {
     margin: 0.5rem auto;
-    height: 350px; /* Adjust card height on smaller screens */
+    height: 350px;
   }
 
   .item-card .item-image {
-    height: 150px; /* Adjust image height on smaller screens */
+    height: 150px;
   }
 
   .item-card .card-title {
@@ -218,3 +178,29 @@ footer a:hover {
   }
 }
 
+/* Tablet Responsiveness */
+@media (max-width: 768px) {
+  .product-grid {
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  }
+}
+
+/* Larger Screen Adjustments */
+@media (max-width: 767px) {
+  .navbar {
+    padding: 10px;
+    flex-direction: column;
+  }
+
+  .navbar-brand img {
+    max-width: 120px;
+  }
+
+  .nav-link {
+    font-size: 12px;
+  }
+
+  .navbar-collapse {
+    text-align: center;
+  }
+}

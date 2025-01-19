@@ -120,9 +120,8 @@ const UpperNavbar = () => {
                   id="user-dropdown"
                   align="end"
                 >
-                  <NavDropdown.Item href="#Settings">Settings</NavDropdown.Item>
-                  <NavDropdown.Item href="#About">About</NavDropdown.Item>
-                  <NavDropdown.Item href="#Contact Us">Contact Us</NavDropdown.Item>
+                  <NavDropdown.Item href="/about">About</NavDropdown.Item>
+                  <NavDropdown.Item href="/contact">Contact Us</NavDropdown.Item>
                   <NavDropdown.Divider />
                   <NavDropdown.Item
                     onClick={handleLogout}
@@ -138,9 +137,8 @@ const UpperNavbar = () => {
                 id="guest-dropdown"
                 align="end"
               >
-                <NavDropdown.Item href="#Settings">Settings</NavDropdown.Item>
-                <NavDropdown.Item href="#About">About</NavDropdown.Item>
-                <NavDropdown.Item href="#Contact Us">Contact Us</NavDropdown.Item>
+                <NavDropdown.Item href="about">About</NavDropdown.Item>
+                <NavDropdown.Item href="/contact">Contact Us</NavDropdown.Item>
                 <NavDropdown.Divider />
                 <NavDropdown.Item
                   onClick={handleShow}

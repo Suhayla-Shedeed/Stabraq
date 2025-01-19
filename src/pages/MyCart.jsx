@@ -20,13 +20,8 @@ const MyCart = () => {
   };
 
   const [showMessage, setShowMessage] = useState(false);
+  const { clearCart } = useContext(CartContext);
 
-  const handleClick = () => {
-    // setCart([]); // Reset the cart
-    setShowMessage(true); // Show the success message
-    setTimeout(() => setShowMessage(false), 3000); // Hide the message after 3 seconds
-  };
-    
   const handleDragEnd = () => {
     setDraggingItem(null);
   };
@@ -49,6 +44,11 @@ const MyCart = () => {
     }
   };
 
+  const handleClickAndReset = () => {
+    setShowMessage(true); 
+    setTimeout(() => setShowMessage(false), 3000);    
+    clearCart(); 
+  };
   return (
     <motion.div
       initial={{ opacity: 0, y: 20 }} // Start position
@@ -104,8 +104,8 @@ const MyCart = () => {
             </div>
           ))}
         </div>
-        <button onClick={handleClick}>Place Order</button>
-        {showMessage && (
+        <button onClick={handleClickAndReset}>Place Order</button>
+          {showMessage && (
           <p style={{ color: "green", fontWeight: "bold", marginTop: "10px" }}>
             Order placed successfully!
           </p>
